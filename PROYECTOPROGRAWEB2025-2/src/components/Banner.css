@@ -1,0 +1,24 @@
+.banner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: #000;
+  /* Mantiene proporción 21:9 (9/21 = 42.86%) */
+  padding-bottom: 42.86%;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.slide.activa {
+  opacity: 1;
+}
