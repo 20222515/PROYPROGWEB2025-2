@@ -1,0 +1,53 @@
+.category-section {
+  padding: 20px 60px;
+  background-color: #ffffff;
+  overflow: hidden; /* evita scrolls verticales extra */
+}
+
+.category-title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: left;
+  color: #000;
+}
+
+/* scroll horizontal */
+.scrollable {
+  display: flex;
+  gap: 25px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* oculta scrollbar en Firefox */
+}
+
+.scrollable::-webkit-scrollbar {
+  display: none; /* oculta scrollbar en Chrome/Safari */
+}
+
+.category-item {
+  flex: 0 0 auto; /* mantiene el tamaño */
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.category-image {
+  width: 150px;
+  height: 150px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  transition: transform 0.3s ease;
+}
+
+.category-item:hover .category-image {
+  transform: scale(1.08);
+}
+
+.category-name {
+  font-size: 14px;
+  color: #000;
+  font-weight: bold;
+}
