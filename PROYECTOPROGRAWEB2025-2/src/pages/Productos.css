@@ -5,7 +5,6 @@
   box-sizing: border-box;
 }
 
-/* ======== LATERAL DE CATEGORÍAS ======== */
 .filtro-categorias {
   width: 220px;
   background: #fff;
@@ -45,7 +44,6 @@
   color: white;
 }
 
-/* ======== GRID DE PRODUCTOS ======== */
 .grid-productos {
   flex: 1;
 }
@@ -61,7 +59,6 @@
   gap: 25px;
 }
 
-/* ======== PAGINACIÓN ======== */
 .paginacion {
   display: flex;
   justify-content: center;

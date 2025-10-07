@@ -12,9 +12,7 @@ function Header() {
   };
 
   const seleccionarCategoria = (nombre) => {
-    // 🔁 Cierra el menú
     setMostrarMenu(false);
-    // 🚀 Navega a la página de productos con la categoría seleccionada
     navigate(`/productos?categoria=${encodeURIComponent(nombre)}`);
   };
 
@@ -24,7 +22,6 @@ function Header() {
 
   return (
     <header className="encabezado">
-      {/* --- BARRA SUPERIOR --- */}
       <div className="barra-navegacion">
         <div className="logo" onClick={irInicio} style={{ cursor: "pointer" }}>
           <h1 className="texto-logo">GamePlay</h1>
@@ -40,7 +37,6 @@ function Header() {
         </div>
       </div>
 
-      {/* --- MENÚ INFERIOR --- */}
       <nav className="menu">
         <ul className="menu-izquierda">
           <li className="menu-categorias" onClick={alternarMenu}>

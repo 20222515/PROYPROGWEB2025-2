@@ -23,7 +23,6 @@ function Banner() {
         ></div>
       ))}
 
-      {/* Puntos indicadores */}
       <div className="puntos">
         {imagenes.map((_, index) => (
           <span

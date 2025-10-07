@@ -13,6 +13,7 @@ function ProductList() {
         {topProductos.map((producto) => (
           <ProductCard
             key={producto.id}
+            id={producto.id}
             nombre={producto.nombre}
             categoria={producto.categoria}
             precio={producto.precio}

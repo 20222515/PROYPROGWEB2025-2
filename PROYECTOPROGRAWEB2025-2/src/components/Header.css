@@ -1,11 +1,10 @@
-/* ======== RESETEO GLOBAL ======== */
+
 body {
   margin: 0;
   padding: 0;
   font-family: Helvetica, Arial, sans-serif;
 }
 
-/* ======== ENCABEZADO GENERAL ======== */
 .encabezado {
   background-color: #ffffff;
   color: black;
@@ -15,7 +14,6 @@ body {
   box-sizing: border-box;
 }
 
-/* ======== BARRA DE NAVEGACIÓN SUPERIOR ======== */
 .barra-navegacion {
   display: flex;
   justify-content: space-between;
@@ -24,7 +22,6 @@ body {
   padding: 0 40px;
 }
 
-/* ======== LOGO ======== */
 .texto-logo {
   font-size: 32px;
   font-weight: bold;
@@ -34,10 +31,9 @@ body {
 }
 
 .texto-logo .punto {
-  color: #3AA423; /* verde estilo GamePlay */
+  color: #3AA423;
 }
 
-/* ======== BARRA DE BÚSQUEDA ======== */
 .barra-busqueda input {
   padding: 8px 10px;
   width: 600px;
@@ -50,7 +46,6 @@ body {
   border: 1px solid #3AA423;
 }
 
-/* ======== BOTONES DE ACCIÓN ======== */
 .acciones a {
   margin-left: 15px;
   text-decoration: none;
@@ -59,21 +54,18 @@ body {
   border-radius: 4px;
 }
 
-/* Botón de carrito */
 .boton-carrito {
   color: #ffffff;
   background-color: #3AA423;
 }
 
 
-/* Botón de login */
 .boton-login {
   color: rgb(0, 0, 0);
   background-color: transparent;
 }
 
 
-/* ======== MENÚ INFERIOR ======== */
 .menu {
   background-color: #3AA423;
   margin-top: 10px;
@@ -85,7 +77,6 @@ body {
   box-sizing: border-box;
 }
 
-/* Listas del menú */
 .menu-izquierda,
 .menu-derecha {
   list-style: none;
@@ -99,7 +90,6 @@ body {
   margin: 0 15px;
 }
 
-/* Enlaces del menú */
 .menu a {
   color: white;
   text-decoration: none;
@@ -110,7 +100,6 @@ body {
   color: #000000;
 }
 
-/* ======== SUBMENÚ DE CATEGORÍAS ======== */
 .menu-categorias {
   position: relative;
 }

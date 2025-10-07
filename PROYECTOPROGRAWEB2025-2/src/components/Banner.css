@@ -6,7 +6,6 @@
   padding-bottom: 42.86%; /* 21:9 */
 }
 
-/* Imagenes */
 .slide {
   position: absolute;
   top: 0;
@@ -23,7 +22,6 @@
   opacity: 1;
 }
 
-/* ===== Puntos indicadores ===== */
 .puntos {
   position: absolute;
   bottom: 15px;

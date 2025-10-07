@@ -16,9 +16,8 @@ function Productos() {
   const [pagina, setPagina] = useState(1);
   const productosPorPagina = 12;
 
-  // ⚙️ Cuando cambia la URL, actualiza la categoría seleccionada
   useEffect(() => {
-    if (categoriaParam && categorias.some(c => c.nombre === categoriaParam)) {
+    if (categoriaParam && categorias.some((c) => c.nombre === categoriaParam)) {
       setCategoriaSeleccionada(categoriaParam);
     } else {
       setCategoriaSeleccionada("Todos");
@@ -26,13 +25,11 @@ function Productos() {
     setPagina(1);
   }, [categoriaParam]);
 
-  // 🔎 Filtrar productos
   const productosFiltrados =
     categoriaSeleccionada === "Todos"
       ? productos
       : productos.filter((p) => p.categoria === categoriaSeleccionada);
 
-  // 🔢 Paginación
   const totalPaginas = Math.ceil(productosFiltrados.length / productosPorPagina);
   const inicio = (pagina - 1) * productosPorPagina;
   const productosPagina = productosFiltrados.slice(inicio, inicio + productosPorPagina);
@@ -42,7 +39,6 @@ function Productos() {
       <Header />
 
       <div className="productos-contenedor">
-        {/* ----------- LATERAL DE CATEGORÍAS ----------- */}
         <aside className="filtro-categorias">
           <h3>Categorías</h3>
           <ul>
@@ -70,7 +66,6 @@ function Productos() {
           </ul>
         </aside>
 
-        {/* ----------- LISTADO DE PRODUCTOS ----------- */}
         <main className="grid-productos">
           <h2>
             {categoriaSeleccionada === "Todos"
@@ -81,7 +76,8 @@ function Productos() {
           <div className="grid">
             {productosPagina.map((p) => (
               <ProductCard
-                key={p.id}
+                key={p.id}         // 👈 Esta línea es crucial para evitar el error
+                id={p.id}
                 nombre={p.nombre}
                 categoria={p.categoria}
                 precio={p.precio}
@@ -90,7 +86,6 @@ function Productos() {
             ))}
           </div>
 
-          {/* ----------- PAGINACIÓN ----------- */}
           <div className="paginacion">
             <button
               disabled={pagina === 1}

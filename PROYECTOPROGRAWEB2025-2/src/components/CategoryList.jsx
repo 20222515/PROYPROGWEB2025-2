@@ -39,8 +39,8 @@ function CategoryList() {
               key={cat.id}
               className="category-item"
               onClick={() => irAProductos(cat.nombre)}
-              role="button" // 👈 accesibilidad
-              style={{ cursor: "pointer" }} // 👈 evita el cambio visual del botón
+              role="button" 
+              style={{ cursor: "pointer" }} 
             >
               <div
                 className="category-image"

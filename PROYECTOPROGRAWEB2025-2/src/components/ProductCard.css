@@ -15,7 +15,6 @@
   transform: scale(1.03);
 }
 
-/* Imagen del producto */
 .product-image {
   width: 100%;
   height: 160px;
@@ -23,14 +22,12 @@
   border-radius: 6px;
 }
 
-/* Contenedor de texto alineado a la izquierda */
 .product-info {
   width: 100%;
   text-align: left;
   margin-top: 10px;
 }
 
-/* Nombre del producto */
 .product-name {
   font-weight: bold;
   font-size: 14px;
@@ -38,27 +35,24 @@
   margin: 4px 0;
 }
 
-/* Categoría del producto */
 .product-category {
   font-size: 12px;
   color: #555555;
   margin: 4px 0;
 }
 
-/* Precio */
 .product-price {
   color: #2e7d32;
   font-weight: bold;
   margin: 4px 0 10px;
 }
 
-/* ======== BOTÓN AGREGAR ======== */
 .product-btn {
-  background-color: #ffffff;      /* Fondo blanco */
-  color: #3aa423;                 /* Texto verde */
-  border: 2px solid #3aa423;      /* Borde verde */
-  padding: 8px 14px;              /* Más gordito */
-  font-weight: bold;              /* Letras gruesas */
+  background-color: #ffffff;     
+  color: #3aa423;                
+  border: 2px solid #3aa423;     
+  padding: 8px 14px;            
+  font-weight: bold;          
   font-size: 14px;
   border-radius: 6px;
   cursor: pointer;
@@ -66,6 +60,6 @@
 }
 
 .product-btn:hover {
-  background-color: #3aa423;      /* Verde al pasar el mouse */
-  color: #ffffff;                 /* Texto blanco */
+  background-color: #3aa423;  
+  color: #ffffff;             
 }

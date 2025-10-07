@@ -4,13 +4,14 @@ import Footer from "./components/Footer";
 import Banner from "./components/Banner";
 import CategoryList from "./components/CategoryList";
 import ProductList from "./components/ProductList";
-import Productos from "./pages/Productos"; // 👈 Importamos la nueva página
+import Productos from "./pages/Productos";
+import ProductoDetalle from "./pages/ProductoDetalle"; // 👈 nuevo import
+
 
 function App() {
   return (
     <Router>
       <Routes>
-        {/* Página principal */}
         <Route
           path="/"
           element={
@@ -23,12 +24,11 @@ function App() {
             </>
           }
         />
+        <Route path="/productos" element={<Productos />} />
 
-        {/* Página de productos */}
-        <Route
-          path="/productos"
-          element={<Productos />}
-        />
+        {/* 👇 Nueva ruta para detalle */}
+        <Route path="/producto/:id" element={<ProductoDetalle />} />
+        
       </Routes>
     </Router>
   );
