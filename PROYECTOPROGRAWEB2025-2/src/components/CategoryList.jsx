@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import categorias from "../data/categorias.js";
 import "./CategoryList.css";
 
 function CategoryList() {
   const [indice, setIndice] = useState(0);
-  const visible = 4; // mostrar 4 categorías a la vez
+  const visible = 4;
+  const navigate = useNavigate();
 
   const siguiente = () => {
     if (indice < categorias.length - visible) {
@@ -18,6 +20,10 @@ function CategoryList() {
     }
   };
 
+  const irAProductos = (categoria) => {
+    navigate(`/productos?categoria=${encodeURIComponent(categoria)}`);
+  };
+
   return (
     <section className="category-section">
       <h2 className="category-title">Explora las categorías</h2>
@@ -29,7 +35,13 @@ function CategoryList() {
 
         <div className="category-list">
           {categorias.slice(indice, indice + visible).map((cat) => (
-            <a href="#" key={cat.id} className="category-item">
+            <a
+              key={cat.id}
+              className="category-item"
+              onClick={() => irAProductos(cat.nombre)}
+              role="button" // 👈 accesibilidad
+              style={{ cursor: "pointer" }} // 👈 evita el cambio visual del botón
+            >
               <div
                 className="category-image"
                 style={{ backgroundImage: `url(${cat.imagen})` }}

@@ -1,24 +1,32 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import categorias from "../data/categorias.js";
 import "./Header.css";
 
 function Header() {
   const [mostrarMenu, setMostrarMenu] = useState(false);
+  const navigate = useNavigate();
 
   const alternarMenu = () => {
     setMostrarMenu(!mostrarMenu);
   };
 
   const seleccionarCategoria = (nombre) => {
-    console.log("Categoría seleccionada:", nombre);
+    // 🔁 Cierra el menú
     setMostrarMenu(false);
+    // 🚀 Navega a la página de productos con la categoría seleccionada
+    navigate(`/productos?categoria=${encodeURIComponent(nombre)}`);
+  };
+
+  const irInicio = () => {
+    navigate("/");
   };
 
   return (
     <header className="encabezado">
       {/* --- BARRA SUPERIOR --- */}
       <div className="barra-navegacion">
-        <div className="logo">
+        <div className="logo" onClick={irInicio} style={{ cursor: "pointer" }}>
           <h1 className="texto-logo">GamePlay</h1>
         </div>
 

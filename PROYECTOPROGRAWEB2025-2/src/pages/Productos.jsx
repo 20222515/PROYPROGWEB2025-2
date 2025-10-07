@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import productos from "../data/productos";
@@ -7,11 +8,25 @@ import ProductCard from "../components/ProductCard";
 import "./Productos.css";
 
 function Productos() {
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const categoriaParam = params.get("categoria");
+
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("Todos");
   const [pagina, setPagina] = useState(1);
   const productosPorPagina = 12;
 
-  // 🔎 Filtrar productos según categoría
+  // ⚙️ Cuando cambia la URL, actualiza la categoría seleccionada
+  useEffect(() => {
+    if (categoriaParam && categorias.some(c => c.nombre === categoriaParam)) {
+      setCategoriaSeleccionada(categoriaParam);
+    } else {
+      setCategoriaSeleccionada("Todos");
+    }
+    setPagina(1);
+  }, [categoriaParam]);
+
+  // 🔎 Filtrar productos
   const productosFiltrados =
     categoriaSeleccionada === "Todos"
       ? productos
@@ -67,9 +82,10 @@ function Productos() {
             {productosPagina.map((p) => (
               <ProductCard
                 key={p.id}
-                name={p.nombre}
-                price={p.precio}
-                img={p.imagen}
+                nombre={p.nombre}
+                categoria={p.categoria}
+                precio={p.precio}
+                imagen={p.imagen}
               />
             ))}
           </div>
