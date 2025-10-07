@@ -1,20 +1,47 @@
+import { useState } from "react";
 import categorias from "../data/categorias.js";
 import "./CategoryList.css";
 
 function CategoryList() {
+  const [indice, setIndice] = useState(0);
+  const visible = 4; // mostrar 4 categorías a la vez
+
+  const siguiente = () => {
+    if (indice < categorias.length - visible) {
+      setIndice(indice + 1);
+    }
+  };
+
+  const anterior = () => {
+    if (indice > 0) {
+      setIndice(indice - 1);
+    }
+  };
+
   return (
     <section className="category-section">
       <h2 className="category-title">Explora las categorías</h2>
-      <div className="category-list scrollable">
-        {categorias.map((cat, index) => (
-          <a key={index} href="#" className="category-item">
-            <div
-              className="category-image"
-              style={{ backgroundImage: `url(${cat.imagen})` }}
-            ></div>
-            <p className="category-name">{cat.nombre}</p>
-          </a>
-        ))}
+
+      <div className="category-carousel">
+        <button className="arrow left" onClick={anterior}>
+          ◀
+        </button>
+
+        <div className="category-list">
+          {categorias.slice(indice, indice + visible).map((cat) => (
+            <a href="#" key={cat.id} className="category-item">
+              <div
+                className="category-image"
+                style={{ backgroundImage: `url(${cat.imagen})` }}
+              ></div>
+              <p className="category-name">{cat.nombre}</p>
+            </a>
+          ))}
+        </div>
+
+        <button className="arrow right" onClick={siguiente}>
+          ▶
+        </button>
       </div>
     </section>
   );

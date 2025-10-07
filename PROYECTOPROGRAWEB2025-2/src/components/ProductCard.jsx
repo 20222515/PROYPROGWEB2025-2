@@ -1,13 +1,18 @@
-// src/components/ProductCard.jsx
 import React from "react";
+import "./ProductCard.css";
 
-function ProductCard({ name, price, img }) {
+function ProductCard({ nombre, categoria, precio, imagen }) {
   return (
-    <div className="producto">
-      <img src={img} alt={name} />
-      <p>{name}</p>
-      <span className="precio">S/ {price}</span>
-      <button>Agregar</button>
+    <div className="product-card">
+      <img src={imagen} alt={nombre} className="product-image" />
+
+      <div className="product-info">
+        <p className="product-name">{nombre}</p>
+        <p className="product-category">{categoria}</p>
+        <p className="product-price">S/ {precio}</p>
+      </div>
+
+      <button className="product-btn">Agregar</button>
     </div>
   );
 }

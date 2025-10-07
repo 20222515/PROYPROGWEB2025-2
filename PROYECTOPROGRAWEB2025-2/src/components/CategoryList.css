@@ -1,53 +1,76 @@
+/* ====== SECCIÓN GENERAL ====== */
 .category-section {
-  padding: 20px 60px;
+  padding: 40px 60px;
   background-color: #ffffff;
-  overflow: hidden; /* evita scrolls verticales extra */
 }
 
 .category-title {
   font-size: 22px;
   font-weight: bold;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
   text-align: left;
   color: #000;
 }
 
-/* scroll horizontal */
-.scrollable {
+/* ====== CARRUSEL ====== */
+.category-carousel {
   display: flex;
-  gap: 25px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  scrollbar-width: none; /* oculta scrollbar en Firefox */
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
 }
 
-.scrollable::-webkit-scrollbar {
-  display: none; /* oculta scrollbar en Chrome/Safari */
+/* Botones de flecha */
+.arrow {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #3aa423;
+  padding: 10px;
+  transition: color 0.2s;
 }
 
+.arrow:hover {
+  color: #000;
+}
+
+/* ====== LISTA ====== */
+.category-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  overflow: hidden;
+  width: 80%;
+}
+
+/* ====== ITEM ====== */
 .category-item {
-  flex: 0 0 auto; /* mantiene el tamaño */
   text-align: center;
   text-decoration: none;
-  color: inherit;
 }
 
+/* círculo con imagen */
 .category-image {
-  width: 150px;
-  height: 150px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
   background-size: cover;
   background-position: center;
-  border-radius: 50%;
-  margin-bottom: 10px;
-  transition: transform 0.3s ease;
+  border: 0px;
+  margin: 0 auto 12px;
+  transition: transform 0.2s;
 }
 
-.category-item:hover .category-image {
-  transform: scale(1.08);
+.category-image:hover {
+  transform: scale(1.05);
 }
 
+/* texto debajo */
 .category-name {
-  font-size: 14px;
+  font-size: 16px;
   color: #000;
   font-weight: bold;
+  margin-top: 5px;
 }
