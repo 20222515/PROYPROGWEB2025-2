@@ -3,8 +3,7 @@
   width: 100%;
   overflow: hidden;
   background-color: #000;
-  /* Mantiene proporción 21:9 (9/21 = 42.86%) */
-  padding-bottom: 42.86%;
+  padding-bottom: 42.86%; /* 21:9 */
 }
 
 .slide {
@@ -21,4 +20,27 @@
 
 .slide.activa {
   opacity: 1;
+}
+
+.puntos {
+  position: absolute;
+  bottom: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.punto {
+  width: 10px;
+  height: 10px;
+  background-color: #aaa;
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+
+.punto.activo {
+  background-color: #3AA423; /* verde de GamePlay */
+  width: 14px;
+  height: 14px;
 }

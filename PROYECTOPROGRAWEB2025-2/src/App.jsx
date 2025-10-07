@@ -5,17 +5,18 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Admin from "./pages/Admin";
+import Productos from "./pages/Productos";
+import ProductoDetalle from "./pages/ProductoDetalle";
 
 function App() {
-  const path = typeof window !== 'undefined' ? window.location.pathname : '/';
-
   return (
     <BrowserRouter>
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/admin" element={<Admin />} />
-        {/* The /users route can be added later; currently links can point to /users */}
+        <Route path="/productos" element={<Productos />} />
+        <Route path="/producto/:id" element={<ProductoDetalle />} />
       </Routes>
       <Footer />
     </BrowserRouter>

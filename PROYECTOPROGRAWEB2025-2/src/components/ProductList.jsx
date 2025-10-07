@@ -1,20 +1,24 @@
-// src/components/ProductList.jsx
 import React from "react";
+import productos from "../data/productos.js";
 import ProductCard from "./ProductCard";
-
-const productos = [
-  { name: "Call of Duty Black Ops 7 - PS5", price: 199, img: "/img/juego1.jpg" },
-  { name: "Spider-Man 2 - PS5", price: 249, img: "/img/juego2.jpg" },
-  { name: "God of War Ragnarok", price: 229, img: "/img/juego3.jpg" },
-];
+import "./ProductList.css";
 
 function ProductList() {
+  const topProductos = productos.slice(0, 5);
+
   return (
     <section className="mas-vendido">
       <h2>Lo más vendido</h2>
       <div className="productos">
-        {productos.map((p, i) => (
-          <ProductCard key={i} {...p} />
+        {topProductos.map((producto) => (
+          <ProductCard
+            key={producto.id}
+            id={producto.id}
+            nombre={producto.nombre}
+            categoria={producto.categoria}
+            precio={producto.precio}
+            imagen={producto.imagen}
+          />
         ))}
       </div>
     </section>

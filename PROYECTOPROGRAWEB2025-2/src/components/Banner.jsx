@@ -22,6 +22,15 @@ function Banner() {
           style={{ backgroundImage: `url(/${img})` }}
         ></div>
       ))}
+
+      <div className="puntos">
+        {imagenes.map((_, index) => (
+          <span
+            key={index}
+            className={index === actual ? "punto activo" : "punto"}
+          ></span>
+        ))}
+      </div>
     </div>
   );
 }

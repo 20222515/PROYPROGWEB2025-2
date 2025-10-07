@@ -1,11 +1,10 @@
-/* ======== RESETEO GLOBAL ======== */
+
 body {
   margin: 0;
   padding: 0;
   font-family: Helvetica, Arial, sans-serif;
 }
 
-/* ======== ENCABEZADO GENERAL ======== */
 .encabezado {
   background-color: #ffffff;
   color: black;
@@ -15,7 +14,6 @@ body {
   box-sizing: border-box;
 }
 
-/* ======== BARRA DE NAVEGACIÓN SUPERIOR ======== */
 .barra-navegacion {
   display: flex;
   justify-content: space-between;
@@ -24,7 +22,6 @@ body {
   padding: 0 40px;
 }
 
-/* ======== LOGO ======== */
 .texto-logo {
   font-size: 32px;
   font-weight: bold;
@@ -34,10 +31,9 @@ body {
 }
 
 .texto-logo .punto {
-  color: #3AA423; /* verde estilo GamePlay */
+  color: #3AA423;
 }
 
-/* ======== BARRA DE BÚSQUEDA ======== */
 .barra-busqueda input {
   padding: 8px 10px;
   width: 600px;
@@ -50,7 +46,6 @@ body {
   border: 1px solid #3AA423;
 }
 
-/* ======== BOTONES DE ACCIÓN ======== */
 .acciones a {
   margin-left: 15px;
   text-decoration: none;
@@ -59,21 +54,18 @@ body {
   border-radius: 4px;
 }
 
-/* Botón de carrito */
 .boton-carrito {
   color: #ffffff;
   background-color: #3AA423;
 }
 
 
-/* Botón de login */
 .boton-login {
   color: rgb(0, 0, 0);
   background-color: transparent;
 }
 
 
-/* ======== MENÚ INFERIOR ======== */
 .menu {
   background-color: #3AA423;
   margin-top: 10px;
@@ -85,7 +77,6 @@ body {
   box-sizing: border-box;
 }
 
-/* Listas del menú */
 .menu-izquierda,
 .menu-derecha {
   list-style: none;
@@ -99,7 +90,6 @@ body {
   margin: 0 15px;
 }
 
-/* Enlaces del menú */
 .menu a {
   color: white;
   text-decoration: none;
@@ -110,6 +100,54 @@ body {
   color: #000000;
 }
 
+<<<<<<< HEAD
 /* Logo link styles */
 .logo-link { text-decoration: none; color: inherit; }
 .logo-link:hover { opacity: 0.9; }
+=======
+.menu-categorias {
+  position: relative;
+}
+
+.submenu {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 6px;
+  padding: 0;
+  margin: 0;
+  width: 200px;
+  z-index: 999;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e0e0e0;
+}
+
+.submenu li {
+  list-style: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.submenu-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #222;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: Helvetica, Arial, sans-serif;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.submenu-item:hover {
+  background-color: #3AA423;
+  color: #fff;
+}
+>>>>>>> 138c475e57b4ae69d7e6b4324b5ae7a4e86ce8af

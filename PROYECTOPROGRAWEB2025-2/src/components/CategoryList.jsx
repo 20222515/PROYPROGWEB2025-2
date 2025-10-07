@@ -1,24 +1,59 @@
-// src/components/CategoryList.jsx
-import React from "react";
-
-const categories = [
-  { name: "Videojuegos", img: "/img/videojuegos.png" },
-  { name: "Consolas", img: "/img/consolas.png" },
-  { name: "Periféricos", img: "/img/perifericos.png" },
-  { name: "Coleccionables", img: "/img/coleccionables.png" },
-];
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import categorias from "../data/categorias.js";
+import "./CategoryList.css";
 
 function CategoryList() {
+  const [indice, setIndice] = useState(0);
+  const visible = 4;
+  const navigate = useNavigate();
+
+  const siguiente = () => {
+    if (indice < categorias.length - visible) {
+      setIndice(indice + 1);
+    }
+  };
+
+  const anterior = () => {
+    if (indice > 0) {
+      setIndice(indice - 1);
+    }
+  };
+
+  const irAProductos = (categoria) => {
+    navigate(`/productos?categoria=${encodeURIComponent(categoria)}`);
+  };
+
   return (
-    <section className="categorias">
-      <h2>Explora las categorías</h2>
-      <div className="categoria-lista">
-        {categories.map((cat, i) => (
-          <div className="categoria" key={i}>
-            <img src={cat.img} alt={cat.name} />
-            <p>{cat.name}</p>
-          </div>
-        ))}
+    <section className="category-section">
+      <h2 className="category-title">Explora las categorías</h2>
+
+      <div className="category-carousel">
+        <button className="arrow left" onClick={anterior}>
+          ◀
+        </button>
+
+        <div className="category-list">
+          {categorias.slice(indice, indice + visible).map((cat) => (
+            <a
+              key={cat.id}
+              className="category-item"
+              onClick={() => irAProductos(cat.nombre)}
+              role="button" 
+              style={{ cursor: "pointer" }} 
+            >
+              <div
+                className="category-image"
+                style={{ backgroundImage: `url(${cat.imagen})` }}
+              ></div>
+              <p className="category-name">{cat.nombre}</p>
+            </a>
+          ))}
+        </div>
+
+        <button className="arrow right" onClick={siguiente}>
+          ▶
+        </button>
       </div>
     </section>
   );
