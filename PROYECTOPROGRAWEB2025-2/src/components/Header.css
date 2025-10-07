@@ -109,3 +109,7 @@ body {
 .menu a:hover {
   color: #000000;
 }
+
+/* Logo link styles */
+.logo-link { text-decoration: none; color: inherit; }
+.logo-link:hover { opacity: 0.9; }

@@ -1,5 +1,6 @@
 import React from "react";
 import "./Header.css";
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
@@ -9,7 +10,7 @@ function Header() {
         {/* LOGO IZQUIERDA */}
         <div className="logo">
           <h1 className="texto-logo">
-            GamePlay
+            <Link to="/" className="logo-link">GamePlay</Link>
           </h1>
         </div>
 
@@ -34,6 +35,7 @@ function Header() {
         </ul>
         <ul className="menu-derecha">
           <li><a href="#">Ofertas</a></li>
+          <li><Link to="/admin">Admin</Link></li>
         </ul>
       </nav>
     </header>
