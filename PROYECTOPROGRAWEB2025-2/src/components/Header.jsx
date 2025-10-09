@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import categorias from "../data/categorias.js";
 import "./Header.css";
-
+import { useUser } from "../components/context/UserContext";
 function Header() {
+
   const [mostrarMenu, setMostrarMenu] = useState(false);
   const navigate = useNavigate();
+  const { user, logout } = useUser();
 
   const alternarMenu = () => {
     setMostrarMenu(!mostrarMenu);
@@ -31,7 +33,14 @@ function Header() {
 
         <div className="acciones">
           <a href="#" className="boton-carrito">Carrito</a>
-          <a href="#" className="boton-login">Usuario</a>
+          {user ? (
+            <div className="usuario-info">
+              <span className="nombre-usuario">👤 {user.nombre}</span>
+              <button className="boton-logout" onClick={logout}>Cerrar sesión</button>
+            </div>
+          ) : (
+            <a href="/login" className="boton-login">Iniciar sesión</a>
+          )}
         </div>
       </div>
 
