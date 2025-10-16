@@ -7,7 +7,7 @@ export function UserProvider({ children }) {
   const [user, setUser] = useState(null);
   const [usuarios, setUsuarios] = useState([]);
 
-  // ✅ Al montar el contexto, cargamos usuarios del localStorage o del JSON
+  //  Al montar el contexto, cargamos usuarios del localStorage o del JSON
   useEffect(() => {
     const almacenados = JSON.parse(localStorage.getItem("usuarios"));
     if (almacenados && almacenados.length > 0) {
