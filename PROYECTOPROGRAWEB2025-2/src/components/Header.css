@@ -1,5 +1,4 @@
 
-
 body {
   margin: 0;
   padding: 0;
@@ -54,12 +53,6 @@ body {
   padding: 8px 12px;
   border-radius: 4px;
 }
-
-.boton-carrito {
-  color: #ffffff;
-  background-color: #3AA423;
-}
-
 
 .boton-login {
   color: rgb(0, 0, 0);
@@ -154,4 +147,58 @@ body {
   background-color: #3AA423;
   color: #fff;
 }
->>>>>>> 138c475e57b4ae69d7e6b4324b5ae7a4e86ce8af
+.boton-carrito{
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black ;
+  transition: color 0.2s ease;
+}
+.boton-carrito{
+  position: relative;
+  display: inline-block;
+}
+.boton-carrito:hover{
+  color: 
+  black;
+}
+
+.icono-carrito {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.boton-carrito {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.counter {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #9893fb;
+  color: white;
+  font-size: 12px;
+  border-radius: 50%;
+}
+
+.acciones{
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
