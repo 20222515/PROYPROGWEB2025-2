@@ -76,7 +76,7 @@ function Productos() {
           <div className="grid">
             {productosPagina.map((p) => (
               <ProductCard
-                key={p.id}         // 👈 Esta línea es crucial para evitar el error
+                key={p.id}   
                 id={p.id}
                 nombre={p.nombre}
                 categoria={p.categoria}

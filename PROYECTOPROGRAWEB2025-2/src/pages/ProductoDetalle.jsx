@@ -22,12 +22,12 @@ function ProductoDetalle() {
     );
   }
 
-  // Productos similares por categoría (excluye el mismo producto)
+
   const similares = productos.filter(
     (p) => p.categoria === producto.categoria && p.id !== producto.id
   );
 
-  // 🧩 Aseguramos que las imágenes desde "public/" se carguen correctamente
+
   const imagePath = `/${producto.imagen.replace(/^\//, "")}`;
 
   return (
@@ -36,7 +36,7 @@ function ProductoDetalle() {
 
       <div className="detalle-container">
         <div className="detalle-producto">
-          {/* ✅ Corregido para cargar desde public */}
+
           <img
             src={imagePath}
             alt={producto.nombre}
@@ -65,7 +65,7 @@ function ProductoDetalle() {
                     nombre={item.nombre}
                     categoria={item.categoria}
                     precio={item.precio}
-                    imagen={similarImagePath} // ✅ también corregido aquí
+                    imagen={similarImagePath} 
                   />
                 );
               })}

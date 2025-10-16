@@ -1,7 +1,9 @@
 import React, { useState, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function AdminOrders({ range }) {
+  const navigate = useNavigate();
+
   const orders = [
     { id: "#1234", user: "Alejandro Ruiz", date: "20/01/2025", total: 199, status: "Entregado" },
     { id: "#1235", user: "Laura Mendez", date: "21/01/2025", total: 299, status: "Enviado" },
@@ -32,13 +34,32 @@ function AdminOrders({ range }) {
     return [1, "dots", page, "dots", totalPages];
   };
 
+  const handleVerTodas = () => {
+    navigate("/admin/ordenes");
+  };
+
   return (
     <section className="admin-orders">
       <div className="orders-header">
         <h3>Listado de órdenes</h3>
         <div className="orders-actions">
-          <Link to="/products" className="btn-ver-productos">Ver productos</Link>
-          <Link to="/orders" className="btn-ver-todas">Ver todas las ordenes</Link>
+          <Link to="/productos" className="btn-ver-productos">
+            Ver productos
+          </Link>
+          <button
+            onClick={handleVerTodas}
+            className="btn-ver-todas"
+            style={{
+              backgroundColor: "#28a745",
+              color: "#fff",
+              border: "none",
+              borderRadius: "6px",
+              padding: "8px 16px",
+              cursor: "pointer",
+            }}
+          >
+            Ver órdenes
+          </button>
         </div>
       </div>
 
@@ -66,21 +87,37 @@ function AdminOrders({ range }) {
       </table>
 
       <div className="paginator">
-        <button className="page-arrow" onClick={() => goTo(page - 1)} disabled={page === 1}>&lt;</button>
+        <button
+          className="page-arrow"
+          onClick={() => goTo(page - 1)}
+          disabled={page === 1}
+        >
+          &lt;
+        </button>
 
-        {renderPageNumbers().map((p, idx) => (
-          p === 'dots' ? (
-            <span key={"dots-" + idx} className="page-dots">…</span>
+        {renderPageNumbers().map((p, idx) =>
+          p === "dots" ? (
+            <span key={"dots-" + idx} className="page-dots">
+              …
+            </span>
           ) : (
             <button
               key={p}
               className={"page" + (p === page ? " active" : "")}
               onClick={() => goTo(p)}
-            >{p}</button>
+            >
+              {p}
+            </button>
           )
-        ))}
+        )}
 
-        <button className="page-arrow" onClick={() => goTo(page + 1)} disabled={page === totalPages}>&gt;</button>
+        <button
+          className="page-arrow"
+          onClick={() => goTo(page + 1)}
+          disabled={page === totalPages}
+        >
+          &gt;
+        </button>
       </div>
     </section>
   );
