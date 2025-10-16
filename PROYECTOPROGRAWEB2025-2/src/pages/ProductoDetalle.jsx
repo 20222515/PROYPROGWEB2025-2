@@ -5,10 +5,23 @@ import Footer from "../components/Footer";
 import productos from "../data/productos.js";
 import ProductCard from "../components/ProductCard";
 import "./ProductoDetalle.css";
+import { useCart } from "../components/context/CartContext.jsx";
 
 function ProductoDetalle() {
   const { id } = useParams();
   const producto = productos.find((p) => p.id === Number(id));
+  const { agregarAlCarrito } = useCart();
+
+    const handleAgregar = () => {
+    agregarAlCarrito({
+      id: producto.id,
+      imagen: imagePath,
+      nombre: producto.nombre,
+      precio: Number(producto.precio),
+      categoria: producto.categoria,
+      cantidad: 1,
+    });
+    };
 
   if (!producto) {
     return (
@@ -48,7 +61,7 @@ function ProductoDetalle() {
             <p className="detalle-categoria">{producto.categoria}</p>
             <p className="detalle-descripcion">{producto.descripcion}</p>
             <p className="detalle-precio">S/ {producto.precio}</p>
-            <button className="detalle-boton">Agregar al carrito</button>
+            <button className="detalle-boton" onClick={handleAgregar}>Agregar al carrito</button>
           </div>
         </div>
 
