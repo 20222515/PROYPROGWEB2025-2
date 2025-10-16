@@ -11,12 +11,12 @@ const Carrito = () => {
     actualizarCantidad,
     vaciarCarrito,
     agregarProducto,
-    setCarritoGlobal, // 👈 añadiremos esto en el context
+    setCarritoGlobal, 
   } = useCart();
   const navigate = useNavigate();
   const { user } = useUser();
 
-  // ======== GUARDAR Y TRAER ========
+
   const guardarParaDespues = () => {
     if (!carrito || carrito.length === 0) {
       alert("Tu carrito está vacío");
