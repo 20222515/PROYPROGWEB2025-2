@@ -3,8 +3,12 @@ import { useNavigate, Link } from "react-router-dom";
 import categorias from "../data/categorias.js";
 import "./Header.css";
 import { useUser } from "../components/context/UserContext";
+import imgcarrito from "../assets/carritoimagen.png";
+import { useCart } from "../components/context/CartContext.jsx";
 function Header() {
 
+  const {carrito} = useCart();
+  const totalProductos = carrito.reduce((total, producto) => total + (producto.cantidad ?? 1), 0);
   const [mostrarMenu, setMostrarMenu] = useState(false);
   const navigate = useNavigate();
   const { user, logout } = useUser();
@@ -32,7 +36,10 @@ function Header() {
         </div>
 
         <div className="acciones">
-          <a href="#" className="boton-carrito">Carrito</a>
+          <Link to="/carrito" className="boton-carrito">
+            <img src={imgcarrito} alt="Carrito" className="icono-carrito" />
+            <span className = 'counter'>{totalProductos}</span> {/*En esta linea usamos span para mostrar la cantidad de productos agregadas al carrito*/}
+          </Link>
           {user ? (
             <div className="usuario-info">
               <span className="nombre-usuario">👤 {user.nombre}</span>

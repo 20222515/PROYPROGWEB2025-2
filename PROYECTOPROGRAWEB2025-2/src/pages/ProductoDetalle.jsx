@@ -13,11 +13,11 @@ function ProductoDetalle() {
   if (!producto) {
     return (
       <>
-        <Header />
+       
         <div className="detalle-container">
           <h2>Producto no encontrado</h2>
         </div>
-        <Footer />
+        
       </>
     );
   }
@@ -32,7 +32,7 @@ function ProductoDetalle() {
 
   return (
     <>
-      <Header />
+      
 
       <div className="detalle-container">
         <div className="detalle-producto">
@@ -74,7 +74,7 @@ function ProductoDetalle() {
         )}
       </div>
 
-      <Footer />
+      
     </>
   );
 }

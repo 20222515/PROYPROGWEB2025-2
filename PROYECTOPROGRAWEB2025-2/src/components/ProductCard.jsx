@@ -1,11 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./ProductCard.css";
+import { useCart } from "../components/context/CartContext.jsx";
 
 function ProductCard({ id, nombre, categoria, precio, imagen }) {
   const navigate = useNavigate();
+  const { agregarAlCarrito } = useCart(); 
 
-  // ✅ Asegura que la ruta funcione incluso si no empieza con "/"
   const imagePath = `/${imagen.replace(/^\//, "")}`;
 
   const verDetalle = () => {
@@ -16,10 +17,21 @@ function ProductCard({ id, nombre, categoria, precio, imagen }) {
     navigate(`/producto/${id}`);
   };
 
-  // 🔹 Botón “Agregar” sin funcionalidad (por ahora)
-  const agregarAlCarrito = (e) => {
-    e.stopPropagation(); // evita abrir el detalle al hacer click
-  };
+  const handleAgregar = (e) => {
+   e.stopPropagation();               
+    e.preventDefault();
+
+  
+    agregarAlCarrito({
+      id,
+      imagen: imagePath,
+      nombre,
+      precio: Number(precio),
+      categoria: categoria || ""
+    });
+  }
+    
+
 
   return (
     <div className="product-card" onClick={verDetalle} style={{ cursor: "pointer" }}>
@@ -31,7 +43,7 @@ function ProductCard({ id, nombre, categoria, precio, imagen }) {
         <p className="product-price">S/ {precio}</p>
       </div>
 
-      <button className="product-btn" onClick={agregarAlCarrito}>
+      <button className="product-btn" onClick={handleAgregar}>
         Agregar
       </button>
     </div>
@@ -39,3 +51,4 @@ function ProductCard({ id, nombre, categoria, precio, imagen }) {
 }
 
 export default ProductCard;
+

@@ -36,7 +36,7 @@ function Productos() {
 
   return (
     <>
-      <Header />
+  
 
       <div className="productos-contenedor">
         <aside className="filtro-categorias">
@@ -106,7 +106,7 @@ function Productos() {
         </main>
       </div>
 
-      <Footer />
+      
     </>
   );
 }
