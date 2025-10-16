@@ -59,7 +59,7 @@ export default function PaymentCardPage() {
 
     const orderConUsuario = {
       ...order,
-      idUsuario: user.id,
+      idUsuario: user.DNI,
       nombreUsuario: user.nombre,
     };
 
