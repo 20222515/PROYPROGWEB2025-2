@@ -63,7 +63,37 @@ export function UserProvider({ children }) {
     localStorage.removeItem("usuario");
   };
 
-  const value = { user, login, logout, register, usuarios };
+  // 🔄 CAMBIAR CONTRASEÑA
+  const changePassword = (antigua, nueva) => {
+    // Si no hay usuario logueado, no se puede cambiar
+    if (!user) return false;
+
+    // Verificamos que la contraseña actual coincida
+    if (user.contraseña !== antigua) {
+      return false;
+    }
+
+    // Actualizamos la contraseña del usuario en la lista
+    const lista = JSON.parse(localStorage.getItem("usuarios")) || [];
+    const actualizada = lista.map((u) =>
+      u.correo.toLowerCase() === user.correo.toLowerCase()
+        ? { ...u, contraseña: nueva }
+        : u
+    );
+
+    // Guardamos los cambios en localStorage
+    localStorage.setItem("usuarios", JSON.stringify(actualizada));
+
+    // También actualizamos el usuario actual y el localStorage de sesión
+    const nuevoUsuario = { ...user, contraseña: nueva };
+    setUser(nuevoUsuario);
+    localStorage.setItem("usuario", JSON.stringify(nuevoUsuario));
+
+    return true;
+  };
+
+
+  const value = { user, login, logout, register, usuarios , changePassword };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }

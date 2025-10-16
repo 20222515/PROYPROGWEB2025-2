@@ -21,6 +21,7 @@ import PedidoCompleto from "./components/Checkout/CompraCompleta.jsx";
 import RegisterPage from "./pages/Register/Register.jsx";
 import PerfilPage from "./pages/PerfilUsuario/PerfilUsuario.jsx";
 import DetalleOrdenPage from "./pages/DetalleOrden/DetalleOrden.jsx";
+import ContraseñaPage from "./pages/CambiarContraseña/CambiarContraseñaPage.jsx";
 export default function App() {
   return (
     <UserProvider>
@@ -44,6 +45,7 @@ export default function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/me" element={<PerfilPage />} />
            <Route path="/orden/:id" element={<DetalleOrdenPage />} />
+           <Route path="/cambiar-contraseña" element={<ContraseñaPage />} />
           </Routes>
           <Footer />
           </CheckoutFlowProvider>

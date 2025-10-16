@@ -43,7 +43,10 @@ const PerfilUsuario = () => {
               src={user.foto || "/images/avatar-default.png"}
               alt="Foto de perfil"
             />
-            <button className="perfil-btn">Cambiar contraseña</button>
+
+          <Link to={`/cambiar-contraseña`} className="perfil-btn">
+                             Cambiar contraseña
+                          </Link>
           </div>
         </div>
 
