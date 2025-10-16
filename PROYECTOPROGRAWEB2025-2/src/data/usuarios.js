@@ -5,7 +5,8 @@ const usuarios = [
     apellido: "Ramirez",
     correo: "ejemplo@hotmail.com",
     contraseña: "clave123",
-    role: "usuario"
+    role: "usuario",
+    active: true
   },
   {
     DNI: 110000,
@@ -13,7 +14,8 @@ const usuarios = [
     apellido: "Teran",
     correo: "ejemplo1@hotmail.com" ,
     contraseña: "clave123",
-    role: "usuario"
+    role: "admin",
+    active: false
   },
 
 

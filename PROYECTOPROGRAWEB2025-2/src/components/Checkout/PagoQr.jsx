@@ -9,14 +9,24 @@ export default function PaymentQRPage() {
   const navigate = useNavigate();
   const { carrito, vaciarCarrito } = useCart();
 
+  const direccion = JSON.parse(localStorage.getItem("direccionEnvio") || "{}");
   const items = Array.isArray(carrito) ? carrito : [];
   const totalItems = items.reduce((s, it) => s + (it.cantidad ?? 1), 0);
   const total = items.reduce(
     (s, it) => s + it.precio * (it.cantidad ?? 1),
     0
   );
+  const order = {
+        items,
+        subtotal : total,
+        total: total,        // ajusta si sumas delivery, etc.
+        direccion,
+        createdAt: Date.now(),
+        };
+        
 
   const handlePago = () => {
+    localStorage.setItem("lastOrder", JSON.stringify(order));
     vaciarCarrito();
     navigate("/checkout/completado");
   };

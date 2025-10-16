@@ -13,7 +13,7 @@ export default function CheckoutCompleted() {
   if (!order) {
     return (
       <section className="checkout container" style={{ padding: 24 }}>
-        <h1 className="checkout__title">Orden completada :)</h1>
+        <h1 className="checkout__title">Orden completada</h1>
         <p>No encontramos una orden reciente.</p>
       </section>
     );
@@ -24,7 +24,7 @@ export default function CheckoutCompleted() {
 
   return (
     <section className="checkout container">
-      <h1 className="checkout__title">Orden completada :)</h1>
+      <h1 className="checkout__title">Orden completada :</h1>
       <p>Gracias por tu compra!</p>
 
       <div className="page-grid">
