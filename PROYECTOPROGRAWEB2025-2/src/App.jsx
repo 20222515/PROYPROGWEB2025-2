@@ -24,7 +24,7 @@ import Pago from "./components/Checkout/CheckoutPago.jsx";
 import Pagoqr from "./components/Checkout/PagoQr.jsx";
 import PagoTarjeta from "./components/Checkout/PagoTarjeta.jsx";
 import PedidoCompleto from "./components/Checkout/CompraCompleta.jsx";
-
+import ProductosPage from "./pages/Admin/ProductosPage.jsx";
 export default function App() {
   return (
     <UserProvider>
@@ -51,12 +51,10 @@ export default function App() {
 
               {/* Panel de administrador */}
               <Route path="/admin" element={<Admin />} />
+              <Route path="/admin/productos" element={<ProductosPage />} />
               <Route path="/admin/usuarios" element={<ListaUsuarios />} />
               <Route path="/admin/usuarios/:id" element={<UsuarioDetalle />} />
-              <Route
-                path="/admin/usuarios/:id/orden/:ordenId"
-                element={<DetalleOrden />}
-              />
+              <Route path="/admin/usuarios/:id/orden/:ordenId" element={<DetalleOrden />} />
               <Route path="/admin/ordenes" element={<ListaOrdenes />} />
               <Route path="/admin/ordenes/:id" element={<DetalleOrden />} />
 

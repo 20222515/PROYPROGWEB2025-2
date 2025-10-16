@@ -34,9 +34,8 @@ function AdminOrders({ range }) {
       <div className="orders-header">
         <h3>Listado de órdenes</h3>
         <div className="orders-actions">
-          <Link to="/productos" className="btn-ver-productos">
-            Ver productos
-          </Link>
+          <Link to="/admin/productos" className="btn-ver-productos">Ver productos</Link>
+          {/* keep a button that navigates to admin orders list for full view */}
           <button
             onClick={handleVerTodas}
             className="btn-ver-todas"
