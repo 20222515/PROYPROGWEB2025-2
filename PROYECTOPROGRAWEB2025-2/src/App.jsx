@@ -19,6 +19,8 @@ import Pagoqr from "./components/Checkout/PagoQr.jsx";
 import PagoTarjeta from "./components/Checkout/PagoTarjeta.jsx";
 import PedidoCompleto from "./components/Checkout/CompraCompleta.jsx";
 import RegisterPage from "./pages/Register/Register.jsx";
+import PerfilPage from "./pages/PerfilUsuario/PerfilUsuario.jsx";
+import DetalleOrdenPage from "./pages/DetalleOrden/DetalleOrden.jsx";
 export default function App() {
   return (
     <UserProvider>
@@ -40,7 +42,8 @@ export default function App() {
             <Route path="/checkout/pago/tarjeta" element={<PagoTarjeta />} />
             <Route path="/checkout/completado" element={<PedidoCompleto />} />
             <Route path="/register" element={<RegisterPage />} />
-            
+            <Route path="/me" element={<PerfilPage />} />
+           <Route path="/orden/:id" element={<DetalleOrdenPage />} />
           </Routes>
           <Footer />
           </CheckoutFlowProvider>

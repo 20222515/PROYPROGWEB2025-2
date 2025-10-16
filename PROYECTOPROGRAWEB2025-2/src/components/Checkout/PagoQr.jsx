@@ -40,7 +40,7 @@ export default function PaymentQRPage() {
 
     const orderConUsuario = {
       ...order,
-      idUsuario: user.id,
+      idUsuario: user.DNI,
       nombreUsuario: user.nombre,
     };
 
