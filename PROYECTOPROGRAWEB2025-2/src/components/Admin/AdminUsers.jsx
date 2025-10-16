@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function AdminUsers({ range, onSelectUser, users }) {
 
-  // Pagination state
+  // Estado para la paginación
   const [page, setPage] = useState(1);
   const pageSize = 7;
 
@@ -19,13 +19,13 @@ function AdminUsers({ range, onSelectUser, users }) {
     setPage(np);
   };
 
-  // Render a compact page list similar to the mock: show up to first 3, ellipsis, last
+  // Función para renderizar los números de página
   const renderPageNumbers = () => {
     if (totalPages <= 7) {
       return Array.from({ length: totalPages }, (_, i) => i + 1);
     }
 
-    // when many pages, show [1,2,3,...,last]
+    // Cuando hay muchas páginas, mostrar [1,2,3,...,última]
     if (page <= 3) {
       return [1, 2, 3, 'dots', totalPages];
     }
@@ -39,7 +39,7 @@ function AdminUsers({ range, onSelectUser, users }) {
     <aside className="admin-users">
       <div className="users-header">
         <h3>Usuarios registrados</h3>
-        {/* Link listo para usar con SPA - la ruta /users puede añadirse posteriormente */}
+        {}
         <Link to="/admin/usuarios" className="btn-ver-todos">Ver todos los usuarios</Link>
       </div>
 

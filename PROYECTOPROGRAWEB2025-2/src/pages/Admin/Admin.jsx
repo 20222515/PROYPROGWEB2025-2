@@ -11,7 +11,7 @@ function Admin() {
   const today = new Date().toISOString().slice(0, 10);
   const [range, setRange] = useState({ from: today, to: today });
   const { usuarios } = useUser();
-  // Users data lifted to the page so both list and detail share it
+  
   const users = usuarios;
 
   const [selectedUser, setSelectedUser] = React.useState(users[0] || null);
