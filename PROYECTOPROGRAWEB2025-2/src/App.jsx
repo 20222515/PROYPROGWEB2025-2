@@ -11,6 +11,7 @@ import Admin from "./pages/Admin";
 import Productos from "./pages/Productos";
 import ProductoDetalle from "./pages/ProductoDetalle";
 import LoginPage from "./pages/Login/Login";
+<<<<<<< HEAD
 import ListaUsuarios from "./data/usuarios.js";
 import Carrito from "./components/Carrito/carrito.jsx";
 import Checkout from "./components/Checkout/Checkout.jsx";
@@ -46,6 +47,7 @@ export default function App() {
         </BrowserRouter>
       </CartProvider>
     </UserProvider>
+
   );
 }
 

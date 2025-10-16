@@ -40,7 +40,7 @@ function AdminUsers({ range, onSelectUser, users }) {
       <div className="users-header">
         <h3>Usuarios registrados</h3>
         {/* Link listo para usar con SPA - la ruta /users puede añadirse posteriormente */}
-        <Link to="/users" className="btn-ver-todos">Ver todos los usuarios</Link>
+        <Link to="/admin/usuarios" className="btn-ver-todos">Ver todos los usuarios</Link>
       </div>
 
       <table className="tabla-usuarios">
