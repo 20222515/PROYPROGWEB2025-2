@@ -5,10 +5,9 @@ import "./UsuarioDetalle.css";
 
 function UsuarioDetalle() {
   const { id } = useParams();
-  const { usuarios } = useUser(); // ✅ usamos el contexto global
+  const { usuarios } = useUser();
   const [paginaActual, setPaginaActual] = useState(1);
 
-  // 🔍 Buscar usuario por DNI (que es nuestro ID real)
   const usuario = usuarios.find((u) => String(u.DNI) === String(id));
 
   if (!usuario) {
@@ -22,7 +21,6 @@ function UsuarioDetalle() {
     );
   }
 
-  // 🧾 Simulación de órdenes (puedes luego reemplazar con datos reales)
   const ordenes = [
     { id: 1234, fecha: "20/01/2025", total: "S/199.00" },
     { id: 2356, fecha: "20/02/2025", total: "S/199.00" },
@@ -37,7 +35,10 @@ function UsuarioDetalle() {
   const ordenesPorPagina = 5;
   const totalPaginas = Math.ceil(ordenes.length / ordenesPorPagina);
   const indiceInicial = (paginaActual - 1) * ordenesPorPagina;
-  const ordenesPaginadas = ordenes.slice(indiceInicial, indiceInicial + ordenesPorPagina);
+  const ordenesPaginadas = ordenes.slice(
+    indiceInicial,
+    indiceInicial + ordenesPorPagina
+  );
 
   const cambiarPagina = (nueva) => {
     if (nueva >= 1 && nueva <= totalPaginas) {
@@ -50,7 +51,6 @@ function UsuarioDetalle() {
       <h2 className="usuario-titulo">Detalles de usuario</h2>
 
       <div className="usuario-detalle-box">
-        {/* ==== INFO PRINCIPAL ==== */}
         <div className="usuario-detalle-info">
           <div>
             <h2>
@@ -70,7 +70,9 @@ function UsuarioDetalle() {
               <strong>Estado:</strong>{" "}
               <span
                 className={
-                  usuario.active ? "usuario-estado-activo" : "usuario-estado-inactivo"
+                  usuario.active
+                    ? "usuario-estado-activo"
+                    : "usuario-estado-inactivo"
                 }
               >
                 {usuario.active ? "Activo" : "Inactivo"}
@@ -93,7 +95,6 @@ function UsuarioDetalle() {
           </div>
         </div>
 
-        {/* ==== TABLA DE ÓRDENES ==== */}
         <div className="usuario-detalle-ordenes">
           <h3>Últimas órdenes</h3>
           <table>
@@ -124,7 +125,6 @@ function UsuarioDetalle() {
             </tbody>
           </table>
 
-          {/* ==== PAGINADOR ==== */}
           <div className="usuario-paginador">
             <button
               onClick={() => cambiarPagina(paginaActual - 1)}

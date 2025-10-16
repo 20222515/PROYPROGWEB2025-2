@@ -1,4 +1,3 @@
-/* ======== GENERAL ======== */
 .usuario-detalle-container {
   padding: 40px 70px;
   background-color: #fafafa;
@@ -18,7 +17,6 @@
   color: #111;
 }
 
-/* ======== CAJA PRINCIPAL ======== */
 .usuario-detalle-box {
   background: #fff;
   border: 1px solid #e2e2e2;
@@ -29,7 +27,6 @@
   padding: 35px 40px;
 }
 
-/* ======== INFO SUPERIOR ======== */
 .usuario-detalle-info {
   display: flex;
   justify-content: space-between;
@@ -58,7 +55,6 @@
   text-decoration: underline;
 }
 
-/* Estado */
 .usuario-estado-activo {
   color: #3ca63c;
   font-weight: 600;
@@ -69,7 +65,6 @@
   font-weight: 600;
 }
 
-/* ======== FOTO Y BOTÓN ======== */
 .usuario-detalle-foto {
   display: flex;
   flex-direction: column;
@@ -83,7 +78,7 @@
   height: 140px;
   border-radius: 50%;
   object-fit: cover;
-  margin-left: -10px; /* mueve ligeramente la imagen a la izquierda */
+  margin-left: -10px;
 }
 
 .usuario-btn-verde {
@@ -102,11 +97,10 @@
   background-color: #2f8d2f;
 }
 
-/* ======== TABLA ======== */
 .usuario-detalle-ordenes {
   background: #fff;
   border-radius: 10px;
-  margin-left: 60px; /* centra la tabla con la imagen */
+  margin-left: 60px;
   transition: margin 0.3s ease;
 }
 
@@ -143,7 +137,6 @@
   font-weight: 600;
 }
 
-/* ======== BOTÓN VER ======== */
 .usuario-btn-ver {
   background-color: #3ca63c;
   color: #fff;
@@ -158,7 +151,6 @@
   background-color: #2f8d2f;
 }
 
-/* ======== PAGINADOR ======== */
 .usuario-paginador {
   display: flex;
   justify-content: center;

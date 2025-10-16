@@ -1,4 +1,3 @@
-// src/App.jsx
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { UserProvider } from "./components/context/UserContext.jsx";
 import { CartProvider } from "./components/context/CartContext.jsx";
@@ -8,7 +7,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 
 import Home from "./pages/Home";
-import Admin from "./pages/Admin";
+import Admin from "./pages/Admin/Admin.jsx";
 import Productos from "./pages/Productos";
 import ProductoDetalle from "./pages/ProductoDetalle";
 import LoginPage from "./pages/Login/Login";
@@ -54,9 +53,12 @@ export default function App() {
               <Route path="/admin" element={<Admin />} />
               <Route path="/admin/usuarios" element={<ListaUsuarios />} />
               <Route path="/admin/usuarios/:id" element={<UsuarioDetalle />} />
-              <Route path="/admin/usuarios/:id/orden/:ordenId" element={<DetalleOrden />} />
+              <Route
+                path="/admin/usuarios/:id/orden/:ordenId"
+                element={<DetalleOrden />}
+              />
               <Route path="/admin/ordenes" element={<ListaOrdenes />} />
-              <Route path="/admin/ordenes/:id" element={<DetalleOrden />} /> {/* ✅ NUEVA RUTA */}
+              <Route path="/admin/ordenes/:id" element={<DetalleOrden />} />
 
               {/* Vista pública directa de orden */}
               <Route path="/orden/:id" element={<DetalleOrden />} />

@@ -4,10 +4,9 @@ import { useUser } from "../components/context/UserContext";
 
 function ListaUsuarios() {
   const navigate = useNavigate();
-  const { usuarios } = useUser(); // ✅ Invocamos el hook correctamente
+  const { usuarios } = useUser(); 
   const [busqueda, setBusqueda] = useState("");
 
-  // 🔍 Filtro dinámico por nombre o correo
   const usuariosFiltrados = usuarios.filter(
     (u) =>
       u.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||

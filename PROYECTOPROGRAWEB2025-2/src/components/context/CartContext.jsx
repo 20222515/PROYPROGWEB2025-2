@@ -52,7 +52,16 @@ export const CartProvider = ({ children }) => {
       )
     );
 }
-
+  const setCarritoGlobal = (nuevoCarrito) => {
+    setCarrito(
+      Array.isArray(nuevoCarrito)
+        ? nuevoCarrito.map((p) => ({
+            ...p,
+            cantidad: p.cantidad ?? 1,
+          }))
+        : []
+    );
+  };
   
 
   const eliminarProducto = (productoId) => {
@@ -68,7 +77,7 @@ export const CartProvider = ({ children }) => {
 
 
   return (
-    <CartContext.Provider value={{ carrito, agregarAlCarrito, eliminarProducto, actualizarCantidad, vaciarCarrito }}>
+    <CartContext.Provider value={{ carrito, setCarritoGlobal,agregarAlCarrito, eliminarProducto, actualizarCantidad, vaciarCarrito }}>
       {children}
     </CartContext.Provider>
   );
