@@ -2,11 +2,12 @@ import "./Carrito.css";
 import { useCart } from "../context/CartContext.jsx";
 import Asside from "../asside.jsx";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/UserContext.jsx";
 
 const Carrito = () => {
   const { carrito, eliminarProducto, actualizarCantidad, vaciarCarrito } = useCart();
   const navigate = useNavigate();
-
+  const { user } = useUser();
   const AumentarCantidad = (productoId) => actualizarCantidad(productoId, 1);
 
   const DisminuirCantidad = (productoId) => {
@@ -15,6 +16,17 @@ const Carrito = () => {
       actualizarCantidad(productoId, -1);
     }
   };
+
+  
+  const handleContinuar = () => {
+    if (user){
+      navigate("/checkout");
+    }
+    else{
+      alert("Por favor inicia sesión para continuar con la compra.");
+      navigate("/login");
+    }
+  }
 
   const handcancelarcompra = () => {
     vaciarCarrito();
@@ -83,7 +95,7 @@ const Carrito = () => {
             totalItems={totalItems}
             totalPrecio={totalPrecio}
             buttonText="Continuar compra"
-            onAction={() => navigate("/checkout")}
+            onAction={handleContinuar}
           />
 
           <div className="extra-buttons">

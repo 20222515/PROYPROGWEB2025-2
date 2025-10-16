@@ -4,16 +4,19 @@ import { useCart } from "../context/CartContext.jsx";
 import Asside from "../asside.jsx";
 import "./Checkout.css";
 import visaCard from "../../assets/Tarjeta.gif";
-
+import { useUser } from "../context/UserContext.jsx";
+import { useOrders } from "../context/OrderContext.jsx";
 
 export default function PaymentCardPage() {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
   const { carrito, vaciarCarrito } = useCart();
+  const { user } = useUser();
+  const { guardarOrden } = useOrders();
 
   const items = Array.isArray(carrito) ? carrito : [];
-  const totalItems = items.reduce((s, it) => s + (it.cantidad ?? 1), 0);
+  const totalItems = items.reduce((s, it) => s + Number(it.cantidad ?? 1), 0);
   const total = items.reduce(
-    (s, it) => s + it.precio * (it.cantidad ?? 1),
+    (s, it) => s + Number(it.precio ?? 0) * Number(it.cantidad ?? 1),
     0
   );
 
@@ -31,26 +34,49 @@ export default function PaymentCardPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (!form.nombre || !form.numero || !form.expiracion || !form.cvv) {
       alert("Por favor completa todos los campos de pago");
       return;
     }
-            const direccion = JSON.parse(localStorage.getItem("direccionEnvio") || "{}");
-        const items = Array.isArray(carrito) ? carrito : [];
-        const subtotal = items.reduce((s, it) => s + (it.precio ?? 0) * (it.cantidad ?? 1), 0);
-        const order = {
-        items,
-        subtotal,
-        total: subtotal,        // ajusta si sumas delivery, etc.
-        direccion,
-        createdAt: Date.now(),
-        };
-        localStorage.setItem("lastOrder", JSON.stringify(order));
+    if (!user) {
+      alert("Debes iniciar sesión para continuar con el pago");
+      navigate("/login");
+      return;
+    }
 
-        vaciarCarrito();
-        navigate("/checkout/completado");
+    const direccion = JSON.parse(localStorage.getItem("direccionEnvio") || "{}");
+
+   
+    const order = {
+      items,
+      subtotal: total,
+      total: total,
+      direccion,
+      createdAt: Date.now(),
+      metodoPago: "Tarjeta de crédito",
+    };
+
+    const orderConUsuario = {
+      ...order,
+      idUsuario: user.id,
+      nombreUsuario: user.nombre,
+    };
+
+    
+    const id = guardarOrden(orderConUsuario);
+
+    
+    localStorage.setItem("lastOrder", JSON.stringify(orderConUsuario));
+
+    vaciarCarrito();
+
+    
+    navigate("/checkout/completado");
+
+    
   };
-
+  
   return (
     <section className="checkout container">
       <h1 className="checkout__title">Checkout</h1>
