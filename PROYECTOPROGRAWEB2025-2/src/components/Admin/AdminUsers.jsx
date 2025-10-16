@@ -57,10 +57,10 @@ function AdminUsers({ range, onSelectUser, users }) {
               <td>
                 <div className="user-cell">
                   <img src={u.photo ? u.photo : '/unknown.jpg'} alt={`${u.name} avatar`} className="user-mini-avatar" />
-                  <span>{u.name}</span>
+                  <span>{u.nombre + " " + u.apellido}</span>
                 </div>
               </td>
-              <td className={u.status === "Activo" ? "activo" : "inactivo"}>{u.status}</td>
+              <td className={u.active === true ? "activo" : "inactivo"}>{u.active === true ? "Activo" : "Inactivo"}</td>
               <td>
                 <button className="btn-sec">Desactivar</button>
                 <button className="btn-ver" onClick={(e) => { e.stopPropagation(); onSelectUser && onSelectUser(u); }}>Ver detalle</button>

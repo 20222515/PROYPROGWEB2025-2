@@ -1,11 +1,16 @@
 import React from "react";
+import { useUser } from "../context/UserContext";
+import { useOrders } from "../context/OrderContext";
 
 function AdminSummary({ range }) {
-  // Placeholder data — in a real app this would be fetched by range
+
+  const { usuarios } = useUser();
+  const { ordenes } = useOrders();
+
   const data = {
-    orders: 68,
-    newUsers: 12,
-    revenue: 2348,
+    orders: ordenes.length,
+    newUsers: usuarios.length,
+    revenue: ordenes.reduce((acc, order) => acc + order.total, 0),
   };
 
   return (

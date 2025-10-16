@@ -1,19 +1,10 @@
 import React, { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
+import { useOrders } from "../context/OrderContext";
 
 function AdminOrders({ range }) {
-  const orders = [
-    { id: "#1234", user: "Alejandro Ruiz", date: "20/01/2025", total: 199, status: "Entregado" },
-    { id: "#1235", user: "Laura Mendez", date: "21/01/2025", total: 299, status: "Enviado" },
-    { id: "#1236", user: "Ana Dias", date: "22/01/2025", total: 159, status: "Pendiente" },
-    { id: "#1237", user: "Juan Perez", date: "23/01/2025", total: 89, status: "Entregado" },
-    { id: "#1238", user: "Marcos P.", date: "24/01/2025", total: 129, status: "Entregado" },
-    { id: "#1239", user: "Laura M.", date: "25/01/2025", total: 59, status: "Pendiente" },
-    { id: "#1240", user: "Carlos L.", date: "26/01/2025", total: 399, status: "Enviado" },
-    { id: "#1241", user: "Ana G.", date: "27/01/2025", total: 49, status: "Entregado" },
-    { id: "#1242", user: "Diego T.", date: "28/01/2025", total: 219, status: "Pendiente" },
-  ];
-
+  const orders = useOrders().ordenes;
+  
   const [page, setPage] = useState(1);
   const pageSize = 4;
   const totalPages = Math.max(1, Math.ceil(orders.length / pageSize));

@@ -7,7 +7,7 @@ import { CheckoutFlowProvider } from "./components/context/CheckoutContext.jsx";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
-import Admin from "./pages/Admin";
+import Admin from "./pages/Admin/Admin";
 import Productos from "./pages/Productos";
 import ProductoDetalle from "./pages/ProductoDetalle";
 import LoginPage from "./pages/Login/Login";
