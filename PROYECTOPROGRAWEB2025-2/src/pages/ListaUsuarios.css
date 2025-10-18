@@ -1,14 +1,14 @@
 .usuarios-container {
-  padding: 40px 70px;
+  padding: 40px 80px;
   background-color: #fafafa;
   min-height: 100vh;
   font-family: "Poppins", sans-serif;
 }
 
 .usuarios-container h2 {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 600;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   color: #111;
 }
 
@@ -18,40 +18,30 @@
   justify-content: flex-start;
   gap: 10px;
   margin-bottom: 25px;
-  max-width: 1000px;
+  max-width: 500px;
+  position: relative;
 }
 
 .busqueda-container input {
-  flex: 1;
-  padding: 10px 12px;
+  width: 100%;
+  padding: 10px 40px 10px 14px;
   border: 1px solid #dcdcdc;
   border-radius: 8px;
   font-size: 15px;
-  transition: all 0.2s ease;
   color: #333;
+  background-color: #fff;
+  transition: all 0.25s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.busqueda-container input::placeholder {
+  color: #999;
 }
 
 .busqueda-container input:focus {
   outline: none;
   border-color: #3ca63c;
-  box-shadow: 0 0 0 2px rgba(60, 166, 60, 0.15);
-}
-
-.busqueda-container button {
-  padding: 9px 18px;
-  background-color: #3ca63c;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.25s ease;
-  font-size: 14px;
-  font-weight: 500;
-  white-space: nowrap;
-}
-
-.busqueda-container button:hover {
-  background-color: #2f8d2f;
+  box-shadow: 0 0 0 3px rgba(60, 166, 60, 0.15);
 }
 
 .tabla-usuarios {
@@ -60,27 +50,29 @@
   background: #fff;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
 }
 
 .tabla-usuarios th {
-  background: #f5f5f5;
+  background: #f6f6f6;
   padding: 14px 12px;
   text-align: left;
   font-weight: 600;
-  color: #333;
+  color: #222;
   border-bottom: 1px solid #e0e0e0;
+  font-size: 14px;
 }
 
 .tabla-usuarios td {
   padding: 14px 12px;
-  border-bottom: 1px solid #f1f1f1;
+  border-bottom: 1px solid #f3f3f3;
   color: #444;
+  font-size: 14px;
   vertical-align: middle;
 }
 
 .tabla-usuarios tr:hover {
-  background-color: #fafdf9;
+  background-color: #f9fff9;
 }
 
 .nombre-usuario {
@@ -90,8 +82,8 @@
 }
 
 .foto-usuario {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   object-fit: cover;
   background-color: #f3f3f3;
@@ -109,24 +101,45 @@
 
 .acciones {
   display: flex;
-  gap: 8px;
+  gap: 10px;
 }
 
 .btn-desactivar,
 .btn-ver {
-  background-color: #3ca63c;
-  color: white;
   border: none;
   border-radius: 6px;
-  padding: 6px 10px;
+  padding: 7px 12px;
   font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
-  transition: 0.2s ease;
+  transition: all 0.2s ease;
 }
 
-.btn-desactivar:hover,
+.btn-desactivar {
+  background-color: #fff;
+  color: #3ca63c;
+  border: 1px solid #3ca63c;
+}
+
+.btn-desactivar:hover {
+  background-color: #3ca63c;
+  color: #fff;
+}
+
+.btn-ver {
+  background-color: #3ca63c;
+  color: white;
+}
+
 .btn-ver:hover {
   background-color: #2f8d2f;
+}
+
+.sin-usuarios {
+  text-align: center;
+  padding: 18px;
+  color: #777;
+  font-style: italic;
 }
 
 .paginador {
@@ -195,5 +208,9 @@
 
   .tabla-usuarios {
     font-size: 13px;
+  }
+
+  .acciones {
+    flex-direction: column;
   }
 }
