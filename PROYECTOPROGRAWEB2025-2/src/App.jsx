@@ -25,6 +25,14 @@ import Pagoqr from "./components/Checkout/PagoQr.jsx";
 import PagoTarjeta from "./components/Checkout/PagoTarjeta.jsx";
 import PedidoCompleto from "./components/Checkout/CompraCompleta.jsx";
 import ProductosPage from "./pages/Admin/ProductosPage.jsx";
+
+import ListaCategorias from "./components/listaCategorias.jsx";
+import ModalEditar from "./components/ModalEditar.jsx";
+import ModalAgregar from "./components/ModalAgregar.jsx";
+
+
+
+
 export default function App() {
   return (
     <UserProvider>
@@ -52,11 +60,18 @@ export default function App() {
               {/* Panel de administrador */}
               <Route path="/admin" element={<Admin />} />
               <Route path="/admin/productos" element={<ProductosPage />} />
+              <Route path="/admin/productos/listacategorias" element={<ListaCategorias/>} />
+              <Route path="/admin/productos/listacategorias/modalEditar" element={<ModalEditar/>} />
+              <Route path="/admin/productos/listacategorias/modalAgregar" element={<ModalAgregar/>} />
+
+
+
               <Route path="/admin/usuarios" element={<ListaUsuarios />} />
               <Route path="/admin/usuarios/:id" element={<UsuarioDetalle />} />
               <Route path="/admin/usuarios/:id/orden/:ordenId" element={<DetalleOrden />} />
               <Route path="/admin/ordenes" element={<ListaOrdenes />} />
               <Route path="/admin/ordenes/:id" element={<DetalleOrden />} />
+              
 
               {/* Vista pública directa de orden */}
               <Route path="/orden/:id" element={<DetalleOrden />} />

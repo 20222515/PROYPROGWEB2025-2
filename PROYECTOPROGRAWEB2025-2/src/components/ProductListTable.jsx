@@ -1,15 +1,20 @@
-import React from "react";
+import React, { use } from "react";
 import productos from "../data/productos";
 import "./ProductListTable.css";
+import { useNavigate } from "react-router-dom";
+
 
 const ProductListTable = () => {
+
+  const navigate = useNavigate();
+  
   return (
     <div className="product-list-table">
       <h2>Listado de productos</h2>
       <div className="table-actions">
         <input type="text" placeholder="Buscar un producto..." className="search-input" />
         <button className="btn-green">Buscar</button>
-        <button className="btn-grey">Categorías</button>
+        <button className="btn-grey" onClick={() =>navigate("/admin/productos/listacategorias")}>Categorías</button>
         <button className="btn-green">Agregar producto</button>
       </div>
       <table className="product-table">
