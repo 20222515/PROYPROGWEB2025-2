@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useState } from "react";
 import "./ListaCategorias.css";
-import { Navigate } from 'react-router-dom';
+
+
 function ListaCategorias() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <div className="contenedor">
         <h2>Listado de Categorias</h2>
 
         <div className="acciones-superiores">
             <input type="text" placeholder="Buscar Categorias....."/>
-            <button className="btn-agregar categoria" onClick={()=> Navigate("/admin/productos/listacategorias/modalAgregar")}>Agregar Categoria</button>
+            <button className="btn-agregar categoria" onClick={() => setIsModalOpen(true)}>Agregar Categoria</button>
         </div>
 
         <div className="contenedor2">
@@ -47,6 +49,10 @@ function ListaCategorias() {
            <button>3</button>
            <button>&raquo;</button>
         </div>
+        <ModalAgregar
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 }
