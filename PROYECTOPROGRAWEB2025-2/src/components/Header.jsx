@@ -42,7 +42,7 @@ function Header() {
           </Link>
           {user ? (
             <div className="usuario-info">
-              <Link to="/me" className="boton-me">
+              <Link to="/register/MisOrdenes" className="boton-me">
                <span className="nombre-usuario">👤 {user.nombre}</span>   
               </Link>        
               <button className="boton-logout" onClick={logout}>Cerrar sesión</button>

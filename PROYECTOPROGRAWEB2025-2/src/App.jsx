@@ -29,8 +29,7 @@ import ProductosPage from "./pages/Admin/ProductosPage.jsx";
 import ListaCategorias from "./components/listacategorias.jsx";
 import ModalEditar from "./components/ModalEditar.jsx";
 import ModalAgregar from "./components/ModalAgregar.jsx";
-
-
+import MisOrdenes from "./components/MisOrdenes.jsx";
 
 
 export default function App() {
@@ -48,6 +47,7 @@ export default function App() {
               <Route path="/producto/:id" element={<ProductoDetalle />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
+              <Route path="/register/MisOrdenes" element={<MisOrdenes/>} />
 
               {/* Carrito y checkout */}
               <Route path="/carrito" element={<Carrito />} />
@@ -63,6 +63,7 @@ export default function App() {
               <Route path="/admin/productos/listacategorias" element={<ListaCategorias/>} />
               <Route path="/admin/productos/listacategorias/modalEditar" element={<ModalEditar/>} />
               <Route path="/admin/productos/listacategorias/modalAgregar" element={<ModalAgregar/>} />
+            
         
 
               <Route path="/admin/usuarios" element={<ListaUsuarios />} />

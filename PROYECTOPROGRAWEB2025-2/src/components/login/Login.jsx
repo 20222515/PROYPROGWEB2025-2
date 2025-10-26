@@ -12,7 +12,7 @@ const Login = () => {
 
   const handleLogin = () => {
     if (login(correo, contraseña)) {
-      navigate("/");
+      navigate("/register/MisOrdenes");
     } else {
       alert("Correo o contraseña incorrectos");
     }
@@ -37,7 +37,6 @@ const Login = () => {
           value={contraseña}
           onChange={(e) => setContraseña(e.target.value)}
         />
-
         <button onClick={handleLogin}>Iniciar sesión</button>
 
         <p>
