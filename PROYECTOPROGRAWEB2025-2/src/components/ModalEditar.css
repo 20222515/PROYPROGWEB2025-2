@@ -1,5 +1,5 @@
 
-.modal-overlay {
+.modal-overlay3 {
   position: fixed;
   top: 0;
   left: 0;
@@ -12,7 +12,7 @@
   z-index: 999;
 }
 
-.modal-container {
+.modal-container3 {
   background: white;
   padding: 20px;
   border-radius: 8px;
@@ -20,7 +20,7 @@
   box-shadow: 0 0 8px rgba(0,0,0,0.2);
 }
 
-.modal-buttons {
+.modal-buttons3 {
   display: flex;
   justify-content: flex-end;
   margin-top: 15px;
@@ -40,7 +40,7 @@
   background-color: #0c8c0c;
 }
 
-.btn-cerrar {
+.btn-cancelar {
   background-color: #ccc;
   border: none;
   padding: 8px 14px;
@@ -52,7 +52,7 @@
   background-color: #aaa;
 }
 
-.form-modal input {
+.form-modal3 input {
   width: 100%;
   padding: 6px;
   margin-top: 6px;
@@ -60,17 +60,13 @@
   border: 1px solid #ccc;
   border-radius: 4px;
 }
-.form-modal label {
+.form-modal3 label {
   margin-top: 15px;
   display: block;
   font-weight: bold;
 }
 
-input.input-description {
-  height: 80px;
-}
-
-.form-modal{
+.form-modal3{
   margin: 20px;
 }
 

@@ -26,10 +26,9 @@ import PagoTarjeta from "./components/Checkout/PagoTarjeta.jsx";
 import PedidoCompleto from "./components/Checkout/CompraCompleta.jsx";
 import ProductosPage from "./pages/Admin/ProductosPage.jsx";
 
-import ListaCategorias from "./components/listaCategorias.jsx";
+import ListaCategorias from "./components/listacategorias.jsx";
 import ModalEditar from "./components/ModalEditar.jsx";
 import ModalAgregar from "./components/ModalAgregar.jsx";
-
 
 
 
@@ -64,8 +63,7 @@ export default function App() {
               <Route path="/admin/productos/listacategorias" element={<ListaCategorias/>} />
               <Route path="/admin/productos/listacategorias/modalEditar" element={<ModalEditar/>} />
               <Route path="/admin/productos/listacategorias/modalAgregar" element={<ModalAgregar/>} />
-
-
+        
 
               <Route path="/admin/usuarios" element={<ListaUsuarios />} />
               <Route path="/admin/usuarios/:id" element={<UsuarioDetalle />} />

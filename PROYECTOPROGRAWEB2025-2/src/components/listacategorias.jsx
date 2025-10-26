@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./ListaCategorias.css";
 import ModalAgregar from "./ModalAgregar";
 import categorias from "../data/listacategorias";
+import ModalConfirmar from "./ModalConfirmar.jsx";
+import ModalEditar from "./ModalEditar.jsx";
 
 
 function ListaCategorias() {
@@ -10,7 +12,31 @@ function ListaCategorias() {
     const handleAgregarCategoria = (nuevaCategoria) => {
     setListaCategorias([...listacategorias, nuevaCategoria]);
     };  
-    
+
+    //ELIMINAR CATEGORIA
+    const [categoriaAEliminar, setCategoriaAEliminar] = useState(null);
+    const handleEliminarCategoria = (id) => {
+    setCategoriaAEliminar(id);
+    };
+    const confirmarEliminar = () => {
+    setListaCategorias(listacategorias.filter((cat) => cat.id !== categoriaAEliminar));
+    setCategoriaAEliminar(null);
+    };
+
+    //EDITAR CATEGORIA
+    const [categoriaAEditar, setCategoriaAEditar] = useState(null);
+    const handleEditarCategoria = (categoria) => {
+    setCategoriaAEditar(categoria);
+    };
+
+    const confirmarEdicion = (categoriaEditada) => {
+    setListaCategorias(
+    listacategorias.map((cat) =>
+      cat.id === categoriaEditada.id ? categoriaEditada : cat));
+    setCategoriaAEditar(null);
+    };
+
+
 
   return (
     <div className="contenedor">
@@ -36,8 +62,8 @@ function ListaCategorias() {
                     <td>{categoria.nombre}</td>
                     <td>{categoria.descripcion}</td>
                     <td>
-                        <button className="btn-editar categoria">Editar</button>
-                        <button className="btn-eliminar categoria">Eliminar</button>
+                        <button className="btn-editar categoria" onClick={() => handleEditarCategoria(categoria)}>Editar</button>
+                        <button className="btn-eliminar categoria" onClick={() => handleEliminarCategoria(categoria.id)}>Eliminar</button>
                     </td>
                 </tr>
                 ))}
@@ -57,6 +83,19 @@ function ListaCategorias() {
         onClose={() => setIsModalOpen(false)}
         onAgregar={handleAgregarCategoria}
       />
+
+        <ModalConfirmar
+        isOpen={!!categoriaAEliminar}
+        onClose={() => setCategoriaAEliminar(null)}
+        onConfirm={confirmarEliminar}
+       />
+
+        <ModalEditar
+        isOpen={!!categoriaAEditar}
+        onClose={() => setCategoriaAEditar(null)}
+        onEditar={confirmarEdicion}
+        categoria={categoriaAEditar}
+        />
     </div>
   );
 }
