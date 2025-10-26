@@ -1,9 +1,17 @@
 import React, { useState } from "react";
 import "./ListaCategorias.css";
+import ModalAgregar from "./ModalAgregar";
+import categorias from "../data/listacategorias";
 
 
 function ListaCategorias() {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [listacategorias, setListaCategorias] = useState(categorias);  
+    const handleAgregarCategoria = (nuevaCategoria) => {
+    setListaCategorias([...listacategorias, nuevaCategoria]);
+    };  
+    
+
   return (
     <div className="contenedor">
         <h2>Listado de Categorias</h2>
@@ -23,22 +31,16 @@ function ListaCategorias() {
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Videojuegos</td>
-                    <td>Productos relacionados con videojuegos</td>
+                {listacategorias.map((categoria) => (
+                <tr key={categoria.id}>
+                    <td>{categoria.nombre}</td>
+                    <td>{categoria.descripcion}</td>
                     <td>
                         <button className="btn-editar categoria">Editar</button>
                         <button className="btn-eliminar categoria">Eliminar</button>
                     </td>
                 </tr>
-                <tr>
-                    <td>Consolas</td>
-                    <td>Equipos y accesorios</td>
-                    <td>
-                        <button className="btn-editar">Editar</button>
-                        <button className="btn-eliminar">Eliminar</button>
-                    </td>
-                </tr>
+                ))}
             </tbody>
             </table>
         </div>
@@ -49,9 +51,11 @@ function ListaCategorias() {
            <button>3</button>
            <button>&raquo;</button>
         </div>
+
         <ModalAgregar
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        onAgregar={handleAgregarCategoria}
       />
     </div>
   );
