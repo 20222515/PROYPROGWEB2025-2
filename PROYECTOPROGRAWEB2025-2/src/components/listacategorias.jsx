@@ -7,6 +7,7 @@ import ModalEditar from "./ModalEditar.jsx";
 
 
 function ListaCategorias() {
+    const [busqueda, setBusqueda] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [listacategorias, setListaCategorias] = useState(categorias);  
     const handleAgregarCategoria = (nuevaCategoria) => {
@@ -22,6 +23,18 @@ function ListaCategorias() {
     setListaCategorias(listacategorias.filter((cat) => cat.id !== categoriaAEliminar));
     setCategoriaAEliminar(null);
     };
+
+    const handleBusqueda = (e) => {
+    setBusqueda(e.target.value);
+    };
+
+    // filtro dinámico sobre el estado actualizado
+    const categoriasFiltradas = listacategorias.filter(cat =>
+    cat.nombre.toLowerCase().includes(busqueda.toLowerCase())
+    );
+
+
+
 
     //EDITAR CATEGORIA
     const [categoriaAEditar, setCategoriaAEditar] = useState(null);
@@ -43,7 +56,7 @@ function ListaCategorias() {
         <h2>Listado de Categorias</h2>
 
         <div className="acciones-superiores">
-            <input type="text" placeholder="Buscar Categorias....."/>
+            <input type="text" placeholder="Buscar Categorias....." value={busqueda} onChange={handleBusqueda}/>
             <button className="btn-agregar categoria" onClick={() => setIsModalOpen(true)}>Agregar Categoria</button>
         </div>
 
@@ -57,7 +70,7 @@ function ListaCategorias() {
                 </tr>
             </thead>
             <tbody>
-                {listacategorias.map((categoria) => (
+                {categoriasFiltradas.map((categoria) => (
                 <tr key={categoria.id}>
                     <td>{categoria.nombre}</td>
                     <td>{categoria.descripcion}</td>
