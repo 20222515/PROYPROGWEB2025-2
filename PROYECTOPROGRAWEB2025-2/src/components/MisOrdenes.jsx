@@ -1,10 +1,34 @@
 
-import React from "react";
+import React, { useState } from "react";
 import "./MisOrdenes.css";  
+import ModalOrden from "./Modaldetalleorden.jsx";
 import fotoPerfil from "../assets/I6.webp";
 
 
 function MisOrdenes() {
+
+  const [ordenSeleccionada, setOrdenSeleccionada] = useState(null);
+  const handleVerDetalles = (orden) => {
+  setOrdenSeleccionada(orden);
+  };
+
+
+  const [busquedaOrden, setBusquedaOrden] = useState('');
+  const handleBusquedaOrden = (e) => {
+  setBusquedaOrden(e.target.value);
+  };
+
+  const ordenes = [
+  { id: 1231, usuario: 'Juan', fecha: '2025/01/20', total: 50.0, estado: 'Entregado' },
+  { id: 1233, usuario: 'Mario Aurelio', fecha: '2025/01/20', total: 199.0, estado: 'Entregado' },
+  // más órdenes...
+  ];
+
+  const ordenesFiltradas = ordenes.filter((orden) =>
+  orden.id.toString().includes(busquedaOrden)
+  );
+
+
   return (
     <div className="dashboard">
 
@@ -23,7 +47,6 @@ function MisOrdenes() {
                 <p>Celular de Contacto: 942600818</p>
                 
 
-
             </div>
             <div className="resumen">
                 <div className="resumen-box">
@@ -39,6 +62,15 @@ function MisOrdenes() {
             </div>
 
         </div>
+      <div className="acciones-superiores">
+        <input
+        type="text"
+        placeholder="Buscar por número de orden..."
+        value={busquedaOrden}
+        onChange={handleBusquedaOrden}
+        style={{ marginBottom: '1rem', marginTop: '1rem', padding: '8px', width: '1400px' }}
+        />
+      </div>
 
       <div className="tabla-ordenes">
         <h3>Historial de órdenes</h3>
@@ -54,14 +86,16 @@ function MisOrdenes() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1233</td>
-              <td>Mario Aurelio</td>
-              <td>20/01/2025</td>
-              <td>$199.00</td>
-              <td>Entregado</td>
-              <td><button className="btn-verdetalle">Ver detalles</button></td>
+            {ordenesFiltradas.map((orden) => (
+            <tr key = {orden.id}>
+               <td>{orden.id}</td>
+               <td>{orden.usuario}</td>
+               <td>{orden.fecha}</td>
+               <td>${Number(orden.total).toFixed(2)}</td>
+               <td>{orden.estado}</td>
+               <td><button className="btn-verdetalle" onClick={() => handleVerDetalles(orden)}>Ver detalles</button></td>
             </tr>
+          ))}
           </tbody>
         </table>
       </div>
@@ -73,8 +107,11 @@ function MisOrdenes() {
         <button>3</button>
         <button>&raquo;</button>
       </div>
-
+      <ModalOrden orden={ordenSeleccionada} onClose={() => setOrdenSeleccionada(null)} />
     </div>
+    
+    
+
   );
 }
 
