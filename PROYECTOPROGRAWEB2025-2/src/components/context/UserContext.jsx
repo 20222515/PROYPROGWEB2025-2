@@ -43,6 +43,7 @@ export function UserProvider({ children }) {
     setUser(null);
     localStorage.removeItem("usuario");
     logoutApi();
+    window.location.reload()
   };
 
   // 🔄 CAMBIAR CONTRASEÑA
