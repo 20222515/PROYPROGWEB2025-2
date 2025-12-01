@@ -1,116 +1,186 @@
 import React, { useState } from "react";
-import "./ListaCategorias.css";
-import ModalAgregar from "./ModalAgregar";
-import categorias from "../data/listacategorias";
-import ModalConfirmar from "./ModalConfirmar.jsx";
-import ModalEditar from "./ModalEditar.jsx";
+import { useEffect } from "react";
+// Importamos los Modales
+import ModalAgregar from "../components/ModalAgregar";
+import ModalEditar from "../components/ModalEditar";
+import ModalConfirmar from "../components/ModalConfirmar";
 
+import "./listacategorias.css"; // Asegúrate de tener estilos básicos
 
-function ListaCategorias() {
-    const [busqueda, setBusqueda] = useState("");
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [listacategorias, setListaCategorias] = useState(categorias);  
-    const handleAgregarCategoria = (nuevaCategoria) => {
-    setListaCategorias([...listacategorias, nuevaCategoria]);
-    };  
+import { 
+    obtenerCategorias, 
+    eliminarCategoria, 
+    crearCategoria,      // <--- AGREGAR
+    actualizarCategoria  // <--- AGREGAR
+} from "../api/categoria";
 
-    //ELIMINAR CATEGORIA
-    const [categoriaAEliminar, setCategoriaAEliminar] = useState(null);
-    const handleEliminarCategoria = (id) => {
-    setCategoriaAEliminar(id);
-    };
-    const confirmarEliminar = () => {
-    setListaCategorias(listacategorias.filter((cat) => cat.id !== categoriaAEliminar));
-    setCategoriaAEliminar(null);
-    };
+export default function AdminCategorias() {
+  const [categorias, setCategorias] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    const handleBusqueda = (e) => {
-    setBusqueda(e.target.value);
-    };
+  // Estados para controlar qué modal se muestra
+  const [showModalAgregar, setShowModalAgregar] = useState(false);
+  const [categoriaAEditar, setCategoriaAEditar] = useState(null); // Contiene la categoría a editar o null
+  const [categoriaAEliminar, setCategoriaAEliminar] = useState(null); // Contiene la categoría a eliminar o null
 
-    // filtro dinámico sobre el estado actualizado
-    const categoriasFiltradas = listacategorias.filter(cat =>
-    cat.nombre.toLowerCase().includes(busqueda.toLowerCase())
-    );
+  // 1. Cargar datos iniciales al montar el componente
+  useEffect(() => {
+    cargarCategorias();
+  }, []);
 
+  const cargarCategorias = async () => {
+    try {
+      setLoading(true);
+      const data = await obtenerCategorias();
+      if (Array.isArray(data)) setCategorias(data);
+    } catch (error) {
+      console.error("Error cargando categorías:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  // --- FUNCIONES CENTRALIZADAS DE LA API (CRUD) ---
 
+  // AGREGAR: Recibe {nombre, descripcion} del modal y llama a la API
+  const handleCategoriaAgregada = async (nuevaData) => {
+    try {
+      // 1. Llamada a la API de creación
+      const nuevaCat = await crearCategoria(nuevaData);
+      
+      // 2. >>> MODIFICACIÓN CLAVE AQUÍ: Verificar que la nueva categoría tenga un ID válido <<<
+      if (nuevaCat && nuevaCat.id) {
+          // Si tiene ID, actualiza el estado local directamente (más rápido)
+          setCategorias([...categorias, nuevaCat]);
+          console.log("Categoría creada con éxito y agregada localmente.");
+      } else {
+          // Si no tiene ID, forzar una recarga completa de la lista para obtener el objeto completo
+          console.warn("Categoría creada, pero el objeto devuelto no tiene ID. Recargando lista...");
+          await cargarCategorias();
+      }
 
-    //EDITAR CATEGORIA
-    const [categoriaAEditar, setCategoriaAEditar] = useState(null);
-    const handleEditarCategoria = (categoria) => {
-    setCategoriaAEditar(categoria);
-    };
+      setShowModalAgregar(false); // Cerrar modal
+    } catch (error) {
+      console.error("Error al crear:", error);
+      console.error("Error al crear la categoría");
+    }
+  };
 
-    const confirmarEdicion = (categoriaEditada) => {
-    setListaCategorias(
-    listacategorias.map((cat) =>
-      cat.id === categoriaEditada.id ? categoriaEditada : cat));
-    setCategoriaAEditar(null);
-    };
+  // EDITAR: Recibe el objeto modificado del modal y llama a la API
+  const handleCategoriaEditada = async (catEditada) => {
+    try {
+      // 1. Llamada a la API de actualización
+      await actualizarCategoria(catEditada.id, {
+        nombre: catEditada.nombre,
+        descripcion: catEditada.descripcion
+      });
+      
+      // 2. Actualizar el estado local (reemplazar el objeto antiguo por el nuevo)
+      setCategorias(categorias.map(c => c.id === catEditada.id ? catEditada : c));
+      setCategoriaAEditar(null); // Cerrar modal
+      console.log("Categoría actualizada"); // Reemplazo de alert
+    } catch (error) {
+      console.error("Error al editar:", error);
+      console.error("Error al actualizar la categoría"); // Reemplazo de alert
+    }
+  };
 
+  // ELIMINAR: Se ejecuta al confirmar en el ModalConfirmar
+  const confirmarEliminacion = async () => {
+    if (!categoriaAEliminar) return;
 
+    try {
+        // 1. Llamada a la API de eliminación
+        await eliminarCategoria(categoriaAEliminar.id);
+        
+        // 2. Actualizar el estado local (filtrar para quitar la eliminada)
+        setCategorias(categorias.filter(c => c.id !== categoriaAEliminar.id));
+        setCategoriaAEliminar(null); // Cerrar modal
+        console.log("Categoría eliminada correctamente"); // Reemplazo de alert
+    } catch (error) {
+        console.error("Error al eliminar:", error);
+        console.error("No se pudo eliminar la categoría"); // Reemplazo de alert
+    }
+  };
 
   return (
-    <div className="contenedor">
-        <h2>Listado de Categorias</h2>
+    <div className="admin-container" style={{padding: 20}}>
+      <div className="admin-header" style={{display:"flex", justifyContent:"space-between", marginBottom:20}}>
+        <h1>Gestión de Categorías</h1>
+        <button 
+            className="btn-green" 
+            onClick={() => setShowModalAgregar(true)}
+        >
+            + Nueva Categoría
+        </button>
+      </div>
 
-        <div className="acciones-superiores">
-            <input type="text" placeholder="Buscar Categorias....." value={busqueda} onChange={handleBusqueda}/>
-            <button className="btn-agregar categoria" onClick={() => setIsModalOpen(true)}>Agregar Categoria</button>
-        </div>
+      {loading ? (
+        <p>Cargando...</p>
+      ) : categorias.length === 0 ? (
+        <p style={{textAlign: 'center', marginTop: '50px', fontSize: '1.2em', color: '#888'}}>
+          No se encontraron categorías. Intenta agregar una nueva.
+        </p>
+      ) : (
+        <table className="tabla-categorias" style={{width:"100%", borderCollapse:"collapse"}}>
+          <thead>
+            <tr style={{background:"#f4f4f4", textAlign:"left"}}>
+              <th style={{padding:10}}>ID</th>
+              <th style={{padding:10}}>Nombre</th>
+              <th style={{padding:10}}>Descripción</th>
+              <th style={{padding:10}}>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {categorias.map((cat) => (
+              <tr key={cat.id} style={{borderBottom:"1px solid #eee"}}>
+                <td style={{padding:10}}>{String(cat.id).substring(0, 8)}...</td>
+                <td style={{padding:10}}><strong>{cat.nombre}</strong></td>
+                <td style={{padding:10}}>{cat.descripcion || "-"}</td>
+                <td style={{padding:10}}>
+                  <button 
+                    onClick={() => setCategoriaAEditar(cat)}
+                    style={{marginRight:10, cursor:"pointer", padding:"5px 10px"}}
+                  >
+                    ✏️ Editar
+                  </button>
+                  <button 
+                    onClick={() => setCategoriaAEliminar(cat)}
+                    style={{color:"white", background:"red", border:"none", borderRadius:4, cursor:"pointer", padding:"5px 10px"}}
+                  >
+                    🗑️ Eliminar
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
 
-        <div className="contenedor2">
-            <table className="tabla">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Descripcion</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                {categoriasFiltradas.map((categoria) => (
-                <tr key={categoria.id}>
-                    <td>{categoria.nombre}</td>
-                    <td>{categoria.descripcion}</td>
-                    <td>
-                        <button className="btn-editar categoria" onClick={() => handleEditarCategoria(categoria)}>Editar</button>
-                        <button className="btn-eliminar categoria" onClick={() => handleEliminarCategoria(categoria.id)}>Eliminar</button>
-                    </td>
-                </tr>
-                ))}
-            </tbody>
-            </table>
-        </div>
-        <div className="paginacion">
-           <button>&laquo;</button>
-           <button className="activo">1</button>
-           <button>2</button>
-           <button>3</button>
-           <button>&raquo;</button>
-        </div>
-
-        <ModalAgregar
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onAgregar={handleAgregarCategoria}
+      {/* --- MODALES CONECTADOS --- */}
+      
+      {/* 1. Modal Agregar */}
+      <ModalAgregar 
+        isOpen={showModalAgregar} 
+        onClose={() => setShowModalAgregar(false)}
+        onAgregar={handleCategoriaAgregada} // Le pasamos la función que tiene la lógica de la API
       />
 
-        <ModalConfirmar
-        isOpen={!!categoriaAEliminar}
-        onClose={() => setCategoriaAEliminar(null)}
-        onConfirm={confirmarEliminar}
-       />
-
-        <ModalEditar
+      {/* 2. Modal Editar */}
+      <ModalEditar
         isOpen={!!categoriaAEditar}
         onClose={() => setCategoriaAEditar(null)}
-        onEditar={confirmarEdicion}
-        categoria={categoriaAEditar}
-        />
+        onEditar={handleCategoriaEditada} // Le pasamos la función que tiene la lógica de la API
+        categoria={categoriaAEditar} // Le pasamos el objeto a editar
+      />
+
+      {/* 3. Modal Confirmar Eliminar */}
+      <ModalConfirmar
+        isOpen={!!categoriaAEliminar}
+        onClose={() => setCategoriaAEliminar(null)}
+        onConfirm={confirmarEliminacion} // Le pasamos la función que tiene la lógica de la API
+      />
+
     </div>
   );
 }
-
-export default ListaCategorias;
