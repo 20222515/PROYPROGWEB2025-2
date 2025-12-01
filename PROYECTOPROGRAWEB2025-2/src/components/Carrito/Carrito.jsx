@@ -10,46 +10,26 @@ const Carrito = () => {
     eliminarProducto,
     actualizarCantidad,
     vaciarCarrito,
-    agregarProducto,
-    setCarritoGlobal, 
+    loading // Opcional: podrías usar esto para mostrar un spinner
   } = useCart();
+  
   const navigate = useNavigate();
   const { user } = useUser();
 
-
-  const guardarParaDespues = () => {
-    if (!carrito || carrito.length === 0) {
-      alert("Tu carrito está vacío");
-      return;
-    }
-    localStorage.setItem("guardados", JSON.stringify(carrito));
-    vaciarCarrito();
-    alert("Productos guardados para después ✅");
-  };
-
-  const traerGuardado = () => {
-    const guardados = JSON.parse(localStorage.getItem("guardados") || "[]");
-    if (!guardados || guardados.length === 0) {
-      alert("No tienes productos guardados.");
-      return;
-    }
-
-    // Reemplaza el carrito global
-    setCarritoGlobal(guardados);
-    localStorage.removeItem("guardados");
-    alert("Productos traídos al carrito 🛒");
-  };
-
   // ======== OPERACIONES ========
   const AumentarCantidad = (id) => actualizarCantidad(id, 1);
+  
   const DisminuirCantidad = (id) => {
     const p = carrito.find((i) => i.id === id);
     if (p && p.cantidad > 1) actualizarCantidad(id, -1);
   };
 
   const handleCancelar = () => {
-    vaciarCarrito();
-    navigate("/");
+    // Preguntar antes de borrar todo es buena práctica
+    if(confirm("¿Estás seguro de vaciar el carrito?")) {
+        vaciarCarrito();
+        navigate("/");
+    }
   };
 
   const handleContinuar = () => {
@@ -60,20 +40,25 @@ const Carrito = () => {
     }
   };
 
+  // VISTA: CARGANDO
+  if (loading && carrito.length === 0) {
+      return <div className="cart container"><p>Cargando carrito...</p></div>;
+  }
+
+  // VISTA: VACÍO
   if (!carrito || carrito.length === 0) {
     return (
       <section className="cart container">
         <h1 className="cart__title">Carrito (0 productos)</h1>
         <p>Tu carrito está vacío.</p>
-        <div className="extra-buttons">
-          <button className="btn-green" onClick={traerGuardado}>
-            Traer guardado
-          </button>
-        </div>
+        <button className="btn-green" onClick={() => navigate('/')}>
+            Ir a comprar
+        </button>
       </section>
     );
   }
 
+  // Cálculos visuales
   const totalItems = carrito.reduce((s, it) => s + (it.cantidad ?? 1), 0);
   const totalPrecio = carrito.reduce(
     (s, it) => s + it.precio * (it.cantidad ?? 1),
@@ -97,13 +82,13 @@ const Carrito = () => {
                 <img src={producto.imagen} alt={producto.nombre} className="cart-img" />
                 <div className="cart-info">
                   <h3>{producto.nombre}</h3>
-                  <p className="cat">{producto.categoria}</p>
+                  <p className="cat">{producto.categoria?.nombre || 'Producto'}</p> {/* Ajuste seguro por si categoría es objeto o null */}
                   <p className="eta">Llega mañana</p>
 
                   <div className="controls">
                     <span>Cantidad</span>
                     <div className="qty">
-                      <button onClick={() => DisminuirCantidad(producto.id)}>-</button>
+                      <button onClick={() => DisminuirCantidad(producto.id)} disabled={qty <= 1}>-</button>
                       <span>{qty}</span>
                       <button onClick={() => AumentarCantidad(producto.id)}>+</button>
                     </div>
@@ -131,14 +116,8 @@ const Carrito = () => {
           />
 
           <div className="extra-buttons">
-            <button className="btn-orange" onClick={guardarParaDespues}>
-              Guardar para después
-            </button>
-            <button className="btn-grey" onClick={traerGuardado}>
-              Traer guardado
-            </button>
             <button className="btn-red" onClick={handleCancelar}>
-              Cancelar compra
+              Vaciar Carrito
             </button>
           </div>
         </div>

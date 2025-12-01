@@ -1,113 +1,69 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import productos from "../data/productos";
-import categorias from "../data/categorias";
+// IMPORTANTE: Según tu foto, el archivo se llama "productos.js" (singular)
+import { obtenerProductos } from "../api/productos"; 
+
 import ProductCard from "../components/ProductCard";
 import "./Productos.css";
 
 function Productos() {
-  const location = useLocation();
-  const params = new URLSearchParams(location.search);
-  const categoriaParam = params.get("categoria");
+  const [listaProductos, setListaProductos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("Todos");
-  const [pagina, setPagina] = useState(1);
-  const productosPorPagina = 12;
-
+  // Cargar SOLO productos
   useEffect(() => {
-    if (categoriaParam && categorias.some((c) => c.nombre === categoriaParam)) {
-      setCategoriaSeleccionada(categoriaParam);
-    } else {
-      setCategoriaSeleccionada("Todos");
-    }
-    setPagina(1);
-  }, [categoriaParam]);
+    const cargarDatos = async () => {
+      try {
+        setLoading(true);
+        console.log("Iniciando carga de productos..."); // Mensaje para depurar
 
-  const productosFiltrados =
-    categoriaSeleccionada === "Todos"
-      ? productos
-      : productos.filter((p) => p.categoria === categoriaSeleccionada);
+        const data = await obtenerProductos();
+        console.log("Datos recibidos de API:", data); // Verás esto en la consola (F12)
 
-  const totalPaginas = Math.ceil(productosFiltrados.length / productosPorPagina);
-  const inicio = (pagina - 1) * productosPorPagina;
-  const productosPagina = productosFiltrados.slice(inicio, inicio + productosPorPagina);
+        if (Array.isArray(data)) {
+            setListaProductos(data);
+        } else {
+            console.error("La API no devolvió un array:", data);
+            setListaProductos([]);
+        }
+
+      } catch (err) {
+        console.error("Error fatal cargando productos:", err);
+        setError("No se pudo conectar con el servidor.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    cargarDatos();
+  }, []);
+
+  if (loading) return <div style={{padding:"50px", textAlign:"center"}}><h2>Cargando productos...</h2></div>;
+  
+  if (error) return <div style={{padding:"50px", color:"red", textAlign:"center"}}><h2>Error: {error}</h2></div>;
 
   return (
-    <>
-  
+    <div className="productos-contenedor">
+        <main className="grid-productos" style={{width: "100%"}}> {/* width 100% porque quitamos el aside */}
+          <h2>Todos los productos (sin categorías)</h2>
 
-      <div className="productos-contenedor">
-        <aside className="filtro-categorias">
-          <h3>Categorías</h3>
-          <ul>
-            <li
-              onClick={() => {
-                setCategoriaSeleccionada("Todos");
-                setPagina(1);
-              }}
-              className={categoriaSeleccionada === "Todos" ? "activo" : ""}
-            >
-              Todos
-            </li>
-            {categorias.map((cat) => (
-              <li
-                key={cat.id}
-                onClick={() => {
-                  setCategoriaSeleccionada(cat.nombre);
-                  setPagina(1);
-                }}
-                className={categoriaSeleccionada === cat.nombre ? "activo" : ""}
-              >
-                {cat.nombre}
-              </li>
-            ))}
-          </ul>
-        </aside>
-
-        <main className="grid-productos">
-          <h2>
-            {categoriaSeleccionada === "Todos"
-              ? "Todos los productos"
-              : categoriaSeleccionada}
-          </h2>
-
-          <div className="grid">
-            {productosPagina.map((p) => (
-              <ProductCard
-                key={p.id}   
-                id={p.id}
-                nombre={p.nombre}
-                categoria={p.categoria}
-                precio={p.precio}
-                imagen={p.imagen}
-              />
-            ))}
-          </div>
-
-          <div className="paginacion">
-            <button
-              disabled={pagina === 1}
-              onClick={() => setPagina(pagina - 1)}
-            >
-              ← Anterior
-            </button>
-            <span>
-              Página {pagina} de {totalPaginas}
-            </span>
-            <button
-              disabled={pagina === totalPaginas}
-              onClick={() => setPagina(pagina + 1)}
-            >
-              Siguiente →
-            </button>
-          </div>
+          {listaProductos.length === 0 ? (
+              <p>No hay productos para mostrar (La lista llegó vacía).</p>
+          ) : (
+              <div className="grid">
+                {listaProductos.map((p) => (
+                  <ProductCard
+                    key={p.id}   
+                    id={p.id}
+                    nombre={p.nombre}
+                    categoria={p.categoria || "General"} 
+                    precio={p.precio}
+                    imagen={p.imagen}
+                  />
+                ))}
+              </div>
+          )}
         </main>
-      </div>
-
-      
-    </>
+    </div>
   );
 }
 
