@@ -1,6 +1,6 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import usuariosBase from "../../data/usuarios.js";
-
+import { registerUser, logoutApi } from "../../api/auth.js";
 const UserContext = createContext();
 
 export function UserProvider({ children }) {
@@ -23,44 +23,26 @@ export function UserProvider({ children }) {
   }, []);
 
   // 🔐 LOGIN
-  const login = (correo, contraseña) => {
-    const lista = JSON.parse(localStorage.getItem("usuarios")) || [];
-    const encontrado = lista.find(
-      (u) =>
-        u.correo.toLowerCase() === correo.toLowerCase() &&
-        u.contraseña === contraseña &&
-        u.active === true // ✅ solo activos
-    );
-
-    if (encontrado) {
-      setUser(encontrado);
-      localStorage.setItem("usuario", JSON.stringify(encontrado));
-      return true;
-    } else {
-      return false;
-    }
-  };
 
   // 📝 REGISTRO
-  const register = (nuevoUsuario) => {
-    const lista = JSON.parse(localStorage.getItem("usuarios")) || [];
-
-    const existe = lista.some(
-      (u) => u.correo.toLowerCase() === nuevoUsuario.correo.toLowerCase()
-    );
-
-    if (existe) return false;
-
-    const actualizada = [...lista, nuevoUsuario];
-    localStorage.setItem("usuarios", JSON.stringify(actualizada));
-    setUsuarios(actualizada);
-    return true;
+  const register = async (nuevoUsuario) => {
+    try{
+    const data = await registerUser(nuevoUsuario)
+     alert("Registro exitoso. Ahora puedes iniciar sesión.");
+      return data
+  }
+    catch (error) {
+      console.error("Error al registrarse", error);
+      // Aquí solo entramos si la respuesta NO es 2xx
+      alert(error.message || "Correo o contraseña incorrectos");
+    }
   };
 
   // 🚪 LOGOUT
   const logout = () => {
     setUser(null);
     localStorage.removeItem("usuario");
+    logoutApi();
   };
 
   // 🔄 CAMBIAR CONTRASEÑA
@@ -93,7 +75,7 @@ export function UserProvider({ children }) {
   };
 
 
-  const value = { user, login, logout, register, usuarios , changePassword };
+  const value = { user, logout, register, usuarios , changePassword };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }

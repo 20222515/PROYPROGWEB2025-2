@@ -5,7 +5,7 @@ import { apiRequest, setToken, clearToken } from './httpClient';
 export function registerUser(payload) {
   // payload podría ser: { nombre, email, password }
   // ajusta los campos a lo que pida tu backend
-  return apiRequest('/auth/register', {
+  return apiRequest('auth/register', {
     method: 'POST',
     body: JSON.stringify(payload),
   });
@@ -14,7 +14,7 @@ export function registerUser(payload) {
 // POST /auth/login
 export async function login(payload) {
   // payload: { email, password } (ajústalo a tu backend)
-  const data = await apiRequest('/auth/login', {
+  const data = await apiRequest('auth/login', {
     method: 'POST',
     body: JSON.stringify(payload),
   });
@@ -28,6 +28,6 @@ export async function login(payload) {
 }
 
 // logout (frontend)
-export function logout() {
+export function logoutApi() {
   clearToken();
 }

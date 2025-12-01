@@ -7,7 +7,8 @@ const Register = () => {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [correo, setCorreo] = useState("");
-  const [dni, setDni] = useState("");
+  const [direccion, setDireccion] = useState("");
+   const [ciudad, setCiudad] = useState("");
   const [contraseña, setContraseña] = useState("");
   const [confirmar, setConfirmar] = useState("");
   const navigate = useNavigate();
@@ -19,22 +20,18 @@ const Register = () => {
       return;
     }
     const nuevousuario = {
-        DNI : dni,
         nombre : nombre,
         apellido: apellido,
         correo: correo,
-        contraseña : contraseña,
-        role : "usuario",
-        active : true
+        password : contraseña,
+        tipoUsuario : "usuario",
+        estado : "activo",
+        direccion: direccion,
+        ciudad: ciudad,
     }
 
     const exito = register(nuevousuario);
-    if (exito) {
-      alert("Registro exitoso. Ahora puedes iniciar sesión.");
-      navigate("/login");
-    } else {
-      alert("Ese correo ya está registrado.");
-    }
+    console.log(exito);
   };
 
   return (
@@ -72,13 +69,23 @@ const Register = () => {
           </div>
 
           <div>
-            <label>DNI</label>
+            <label>Direccion</label>
             <input
-              placeholder="DNI"
-              value={dni}
-              onChange={(e) => setDni(e.target.value)}
+              placeholder="Direccion"
+              value={direccion}
+              onChange={(e) => setDireccion(e.target.value)}
             />
           </div>
+          
+          <div>
+            <label>Ciudad</label>
+            <input
+              placeholder="Ciudad"
+              value={ciudad}
+              onChange={(e) => setCiudad(e.target.value)}
+            />
+          </div>
+
 
           <div>
             <label>Contraseña</label>

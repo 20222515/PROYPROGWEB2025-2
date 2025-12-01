@@ -1,20 +1,31 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../components/context/UserContext";
 import "./Login.css";
-
+import { login as loginApi } from "../../api/auth"; // login del backend
 const Login = () => {
   const navigate = useNavigate();
   const [correo, setCorreo] = useState("");
   const [contraseña, setContraseña] = useState("");
-  const { login } = useUser();
 
-  const handleLogin = () => {
-    if (login(correo, contraseña)) {
+  const handleLogin = async () => {
+    try {
+      // Enviamos EXACTAMENTE lo mismo que en Postman
+      const data = await loginApi({
+        correo,
+        password: contraseña,
+      });
+      console.log(data)
+      localStorage.setItem("usuario", JSON.stringify(data.user));
+      console.log("Respuesta login:", data);
+
+      // Si llegamos aquí, el backend ya dijo "Login exitoso"
       navigate("/register/MisOrdenes");
-    } else {
-      alert("Correo o contraseña incorrectos");
+      window.location.reload()
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error);
+      // Aquí solo entramos si la respuesta NO es 2xx
+      alert(error.message || "Correo o contraseña incorrectos");
     }
   };
 
@@ -22,6 +33,7 @@ const Login = () => {
     <div className="login-container">
       <div className="login-card">
         <h2>Iniciar sesión</h2>
+
         <label>Correo</label>
         <input
           type="email"
@@ -37,6 +49,7 @@ const Login = () => {
           value={contraseña}
           onChange={(e) => setContraseña(e.target.value)}
         />
+
         <button onClick={handleLogin}>Iniciar sesión</button>
 
         <p>
@@ -54,3 +67,4 @@ const Login = () => {
 };
 
 export default Login;
+
