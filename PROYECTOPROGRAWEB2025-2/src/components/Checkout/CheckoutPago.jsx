@@ -16,6 +16,7 @@ export default function PaymentMethodPage() {
   const { carrito } = useCart();
 
   const items = Array.isArray(carrito) ? carrito : [];
+  
   if (!items.length) {
     return (
       <section className="checkout container" style={{ padding: 24 }}>
@@ -25,9 +26,9 @@ export default function PaymentMethodPage() {
   }
 
   const totalItems = items.reduce((s, it) => s + Number(it.cantidad ?? 1), 0);
-  const subtotal   = items.reduce((s, it) => s + Number(it.precio ?? 0) * Number(it.cantidad ?? 1), 0);
+  const subtotal = items.reduce((s, it) => s + Number(it.precio ?? 0) * Number(it.cantidad ?? 1), 0);
 
-  // método seleccionado (qr | card)
+  // Estado del método seleccionado (recupera del localStorage o default "qr")
   const [metodo, setMetodo] = useState(
     localStorage.getItem("metodoPago") || "qr"
   );

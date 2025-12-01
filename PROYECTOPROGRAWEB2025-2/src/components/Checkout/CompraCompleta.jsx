@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Asside from "../asside.jsx";
 import "./Checkout.css";
-
 export default function CheckoutCompleted() {
   const [order, setOrder] = useState(null);
 
@@ -12,63 +11,54 @@ export default function CheckoutCompleted() {
 
   if (!order) {
     return (
-      <section className="checkout container" style={{ padding: 24 }}>
-        <h1 className="checkout__title">Orden completada</h1>
-        <p>No encontramos una orden reciente.</p>
+      <section className="checkout container" style={{ padding: 24, textAlign:"center" }}>
+        <h1>Orden no encontrada</h1>
+        <button className="btn-green" onClick={() => window.location.href = "/productos"}>Volver</button>
       </section>
     );
   }
 
-  const { items = [], subtotal = 0, total = 0, direccion = {} } = order;
+  const { items = [], total = 0, direccion = {} } = order;
   const totalItems = items.reduce((s, it) => s + (it.cantidad ?? 1), 0);
 
   return (
     <section className="checkout container">
-      <h1 className="checkout__title">Orden completada :</h1>
-      <p>Gracias por tu compra!</p>
+      <h1 className="checkout__title" style={{color:"#27ae60"}}>¡Gracias por tu compra! 🎉</h1>
+      <p>Hemos recibido tu pedido correctamente.</p>
 
       <div className="page-grid">
-        {/* --------- Columna principal --------- */}
         <main className="main-content">
-          <h2>Resumen de la compra</h2>
+          <h2>Resumen</h2>
           <div className="order-summary">
             {items.map((it) => (
-              <div key={it.id} className="order-item">
-                <img src={it.imagen} alt={it.nombre} />
+              <div key={it.id || Math.random()} className="order-item">
+                
+                {/* --- CAMBIO AQUÍ: IMAGEN FIJA --- */}
+                {/* Quitamos it.imagen y onError para evitar el bug */}
+                <img 
+                    src="https://via.placeholder.com/80.png?text=IMG" 
+                    alt={it.nombre}
+                    className="order-item__img" // Asegúrate de tener estilos para esto si es necesario
+                />
+                {/* -------------------------------- */}
+
                 <div className="order-item__info">
                   <h3>{it.nombre}</h3>
-                  <p className="order-item__categoria">{it.categoria}</p>
-                  <p className="order-item__envio">Llega mañana</p>
+                  <p>{typeof it.categoria === 'object' ? it.categoria?.nombre : (it.categoria || "General")}</p>
                 </div>
-                <div className="order-item__precio">
-                  S/ {(it.precio * (it.cantidad ?? 1)).toFixed(2)}
-                </div>
+                <div className="order-item__precio">S/ {(Number(it.precio) * (it.cantidad ?? 1)).toFixed(2)}</div>
               </div>
             ))}
           </div>
         </main>
 
-        {/* --------- Columna lateral --------- */}
         <div className="checkout-aside">
-          <Asside
-            totalItems={totalItems}
-            totalPrecio={total}
-            buttonText="Ver más ofertas"
-            onAction={() => (window.location.href = "/productos")}
-          />
-          
-          {/* ✅ Mueve aquí la dirección de envío */}
-          <div className="direccion-box">
-            <h3>Dirección de envío</h3>
+          <Asside totalItems={totalItems} totalPrecio={total} buttonText="Seguir Comprando" onAction={() => window.location.href = "/productos"} />
+          <div className="direccion-box" style={{marginTop: 20, padding: 15, background: "#f9f9f9"}}>
+            <h3>Enviando a:</h3>
+            <p><strong>{direccion.nombre} {direccion.apellido}</strong></p>
             <p>{direccion.direccion}</p>
-            <p>{direccion.ciudad}</p>
-            <p>Celular de contacto: {direccion.telefono}</p>
-            {direccion.entrega && (
-              <p>
-                Fecha de entrega aproximada:{" "}
-                <strong>{direccion.entrega}</strong>
-              </p>
-            )}
+            <p>Tel: {direccion.telefono}</p>
           </div>
         </div>
       </div>
